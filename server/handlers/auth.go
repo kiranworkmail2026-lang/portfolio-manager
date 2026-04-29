@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"net/http"
+	"os"
 	"strings"
 	"time"
 
@@ -29,13 +30,18 @@ func writeErr(w http.ResponseWriter, status int, msg string) {
 }
 
 func setTokenCookie(w http.ResponseWriter, token string) {
+	prod := os.Getenv("ENV") == "production"
+	sameSite := http.SameSiteLaxMode
+	if prod {
+		sameSite = http.SameSiteNoneMode
+	}
 	http.SetCookie(w, &http.Cookie{
 		Name:     "token",
 		Value:    token,
 		Path:     "/",
 		HttpOnly: true,
-		Secure:   false, // local dev
-		SameSite: http.SameSiteLaxMode,
+		Secure:   prod,
+		SameSite: sameSite,
 		Expires:  time.Now().Add(7 * 24 * time.Hour),
 	})
 }
@@ -139,11 +145,18 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 func Logout(w http.ResponseWriter, r *http.Request) {
+	prod := os.Getenv("ENV") == "production"
+	sameSite := http.SameSiteLaxMode
+	if prod {
+		sameSite = http.SameSiteNoneMode
+	}
 	http.SetCookie(w, &http.Cookie{
 		Name:     "token",
 		Value:    "",
 		Path:     "/",
 		HttpOnly: true,
+		Secure:   prod,
+		SameSite: sameSite,
 		Expires:  time.Unix(0, 0),
 		MaxAge:   -1,
 	})
