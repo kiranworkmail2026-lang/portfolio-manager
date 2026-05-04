@@ -19,6 +19,7 @@ export function Navbar() {
         Portfolio Manager
       </Link>
       <div className="flex items-center gap-4 text-sm">
+        <Link href="/blog" className="text-gray-700 hover:text-indigo-600">Blog</Link>
         {user ? (
           <>
             <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600">Dashboard</Link>
