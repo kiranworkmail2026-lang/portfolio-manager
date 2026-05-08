@@ -48,6 +48,14 @@ func main() {
 		r.Delete("/{id}", handlers.Delete)
 	})
 
+	r.Route("/api/analyze", func(r chi.Router) {
+		r.Use(middleware.RequireAuth)
+		r.Post("/", handlers.Analyze)
+		r.Get("/history", handlers.AnalysisHistory)
+		r.Get("/{id}", handlers.AnalysisGet)
+		r.Delete("/{id}", handlers.AnalysisDelete)
+	})
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"

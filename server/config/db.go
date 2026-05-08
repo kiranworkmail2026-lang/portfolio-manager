@@ -42,3 +42,4 @@ func ConnectDB() error {
 
 func Users() *mongo.Collection      { return DB.Collection("users") }
 func Portfolios() *mongo.Collection { return DB.Collection("portfolios") }
+func Analyses() *mongo.Collection   { return DB.Collection("analyses") }
