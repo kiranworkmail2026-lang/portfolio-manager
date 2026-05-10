@@ -25,6 +25,7 @@ export function Navbar() {
             <Link href="/dashboard" className="text-gray-700 hover:text-indigo-600">Dashboard</Link>
             <Link href="/upload" className="text-gray-700 hover:text-indigo-600">Upload</Link>
             <Link href="/analyze" className="text-gray-700 hover:text-indigo-600">Analyse</Link>
+            <Link href="/posts" className="text-gray-700 hover:text-indigo-600">My Posts</Link>
             <span className="text-gray-500">{user.email}</span>
             <button onClick={handleLogout} className="text-red-600 hover:text-red-700">Logout</button>
           </>

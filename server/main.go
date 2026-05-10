@@ -56,6 +56,22 @@ func main() {
 		r.Delete("/{id}", handlers.AnalysisDelete)
 	})
 
+	// Author-scoped post management (drafts + published).
+	r.Route("/api/posts", func(r chi.Router) {
+		r.Use(middleware.RequireAuth)
+		r.Post("/", handlers.CreatePost)
+		r.Get("/", handlers.ListMyPosts)
+		r.Get("/{id}", handlers.GetMyPost)
+		r.Patch("/{id}", handlers.UpdatePost)
+		r.Delete("/{id}", handlers.DeletePost)
+	})
+
+	// Public blog endpoints (no auth).
+	r.Route("/api/blog", func(r chi.Router) {
+		r.Get("/", handlers.ListPublishedPosts)
+		r.Get("/{slug}", handlers.GetPublishedPostBySlug)
+	})
+
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"

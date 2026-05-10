@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { PrivateRoute } from "@/components/PrivateRoute";
 import { api } from "@/lib/api";
@@ -32,6 +33,7 @@ export default function AnalyzePage() {
 }
 
 function AnalyzeView() {
+  const router = useRouter();
   const [question, setQuestion] = useState("");
   const [status, setStatus] = useState<Status>("idle");
   const [updates, setUpdates] = useState<AgentUpdate[]>([]);
@@ -40,16 +42,34 @@ function AnalyzeView() {
   const [history, setHistory] = useState<HistoryItem[]>([]);
   const [viewingId, setViewingId] = useState<string | null>(null);
   const [elapsed, setElapsed] = useState(0);
+  const [savingDraft, setSavingDraft] = useState(false);
   const startedAtRef = useRef<number>(0);
   const abortRef = useRef<AbortController | null>(null);
 
   const baseURL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080";
 
-  const loadHistory = async () => {
+  const loadHistory = async (selectLatest?: boolean) => {
     try {
       const r = await api.get("/api/analyze/history");
-      setHistory(r.data.data || []);
+      const items = r.data.data || [];
+      setHistory(items);
+      if (selectLatest && items.length > 0 && items[0].status === "success") {
+        setViewingId(items[0].id);
+      }
     } catch {}
+  };
+
+  const saveAsDraft = async () => {
+    if (!viewingId) return;
+    setSavingDraft(true);
+    try {
+      const r = await api.post("/api/posts", { analysisId: viewingId });
+      router.push(`/posts/${r.data.data.id}/edit`);
+    } catch (e: any) {
+      alert(e?.response?.data?.message || "Failed to create draft");
+    } finally {
+      setSavingDraft(false);
+    }
   };
 
   useEffect(() => {
@@ -103,7 +123,7 @@ function AnalyzeView() {
           setStatus("error");
         } else if (event === "done") {
           setStatus((s) => (s === "error" ? s : "done"));
-          loadHistory();
+          loadHistory(true);
         }
       },
       onError: (err) => {
@@ -113,7 +133,7 @@ function AnalyzeView() {
       onDone: () => {
         setStatus((s) => {
           if (s === "streaming") {
-            loadHistory();
+            loadHistory(true);
             return "done";
           }
           return s;
@@ -302,7 +322,19 @@ function AnalyzeView() {
         {/* Final answer */}
         {answer && (
           <div className="bg-white rounded-lg shadow p-6">
-            <h3 className="text-sm font-semibold text-gray-500 uppercase mb-3">Answer</h3>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-sm font-semibold text-gray-500 uppercase">Answer</h3>
+              {viewingId && status !== "streaming" && (
+                <button
+                  onClick={saveAsDraft}
+                  disabled={savingDraft}
+                  className="text-sm bg-indigo-600 text-white px-3 py-1.5 rounded hover:bg-indigo-700 disabled:opacity-50"
+                  title="Create a blog draft from this answer (you can edit before publishing)"
+                >
+                  {savingDraft ? "Creating draft…" : "Save as blog draft"}
+                </button>
+              )}
+            </div>
             <div className="prose prose-sm max-w-none">
               <ReactMarkdown>{answer}</ReactMarkdown>
             </div>

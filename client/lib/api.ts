@@ -28,3 +28,28 @@ export type Portfolio = {
   holdings: Holding[];
   uploadedAt: string;
 };
+
+export type Post = {
+  id: string;
+  authorId: string;
+  authorName: string;
+  title: string;
+  slug: string;
+  content: string;
+  excerpt: string;
+  status: "draft" | "published";
+  sourceAnalysisId?: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt?: string;
+};
+
+export type PublicPost = {
+  id: string;
+  authorName: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content?: string;
+  publishedAt?: string;
+};
