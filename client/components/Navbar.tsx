@@ -1,12 +1,16 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
 export function Navbar() {
   const { user, logout } = useAuth();
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Landing page provides its own header — hide the global navbar there.
+  if (pathname === "/") return null;
 
   const handleLogout = async () => {
     await logout();
