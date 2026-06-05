@@ -6,11 +6,20 @@ import {
   SignupModalButton,
   RedirectAuthed,
 } from "@/components/LandingInteractive";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "PortfolioHQ — Track your portfolio against the world's best investors",
   description:
     "Track your investments against Warren Buffett's Berkshire Hathaway 13F portfolio. Know exactly what to buy, what to reduce, and why. $5 per year.",
+  alternates: { canonical: `${SITE_URL}/` },
+  openGraph: {
+    title: "PortfolioHQ — Track your portfolio against the world's best investors",
+    description:
+      "Track your investments against Warren Buffett's Berkshire Hathaway 13F portfolio. Know exactly what to buy, what to reduce, and why.",
+    url: `${SITE_URL}/`,
+    type: "website",
+  },
 };
 
 const HERO_HOLDINGS = [

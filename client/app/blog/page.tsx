@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { PublicPost } from "@/lib/api";
+import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -24,6 +25,13 @@ function formatDate(s?: string) {
 export const metadata = {
   title: "Blog | Portfolio Manager",
   description: "Insights, analyses, and notes on building stock portfolios.",
+  alternates: { canonical: `${SITE_URL}/blog` },
+  openGraph: {
+    title: "Blog | Portfolio Manager",
+    description: "Insights, analyses, and notes on building stock portfolios.",
+    url: `${SITE_URL}/blog`,
+    type: "website",
+  },
 };
 
 export default async function BlogPage() {

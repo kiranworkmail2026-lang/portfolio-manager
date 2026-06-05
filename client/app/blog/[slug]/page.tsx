@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { PublicPost } from "@/lib/api";
+import { SITE_URL } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -23,8 +24,31 @@ function formatDate(s?: string) {
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = await fetchPost(params.slug);
-  if (!post) return { title: "Not found" };
-  return { title: `${post.title} | Portfolio Manager`, description: post.excerpt };
+  if (!post) {
+    return {
+      title: "Not found",
+      robots: { index: false, follow: false },
+    };
+  }
+  const url = `${SITE_URL}/blog/${post.slug}`;
+  return {
+    title: `${post.title} | Portfolio Manager`,
+    description: post.excerpt,
+    alternates: { canonical: url },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      url,
+      type: "article",
+      publishedTime: post.publishedAt,
+      authors: post.authorName ? [post.authorName] : undefined,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.excerpt,
+    },
+  };
 }
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
