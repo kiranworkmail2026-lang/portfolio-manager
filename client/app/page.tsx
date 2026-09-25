@@ -1,277 +1,352 @@
 import Link from "next/link";
 import type { Metadata } from "next";
-import styles from "./landing.module.css";
-import { FAQAccordion, SignupButton, RedirectAuthed } from "@/components/LandingInteractive";
-import { SITE_URL } from "@/lib/site";
+import "./marketing.css";
+import { SiteHeader } from "@/components/marketing/SiteHeader";
+import { SiteFooter } from "@/components/marketing/SiteFooter";
+import { Guilloche } from "@/components/marketing/Guilloche";
+import { RedirectAuthed } from "@/components/marketing/RedirectAuthed";
+import { MarketingFonts } from "@/components/marketing/MarketingFonts";
+import { sample, usd, pct } from "@/lib/sampleData";
+
+const DESCRIPTION =
+  "Upload the holdings export from your broker. PortfolioHQ sets out value, performance and concentration in one considered report.";
 
 export const metadata: Metadata = {
-  title: "PortfolioHQ — Upload your holdings, see your portfolio clearly",
-  description:
-    "Upload a CSV or Excel export of your stock holdings and get a clear dashboard: total value, gain/loss per position, sector breakdown, and your largest positions at a glance. Free to use.",
-  alternates: { canonical: `${SITE_URL}/` },
+  title: "PortfolioHQ | Private portfolio reporting",
+  description: DESCRIPTION,
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "PortfolioHQ — Upload your holdings, see your portfolio clearly",
-    description:
-      "Upload a CSV or Excel export of your holdings and get a clear dashboard: total value, gain/loss, sector breakdown, and your largest positions at a glance.",
-    url: `${SITE_URL}/`,
+    title: "PortfolioHQ | Private portfolio reporting",
+    description: DESCRIPTION,
+    url: "/",
     type: "website",
   },
 };
 
-// Illustrative sample data — labelled as a sample in the UI below.
-const SAMPLE_HOLDINGS = [
-  { sym: "AAPL", co: "Apple Inc", qty: "50", buy: "$142.50", cur: "$178.20", pnl: "+25.1%", pnlPos: true },
-  { sym: "MSFT", co: "Microsoft Corp", qty: "30", buy: "$280.00", cur: "$338.50", pnl: "+20.9%", pnlPos: true },
-  { sym: "VTI", co: "Vanguard Total Market", qty: "100", buy: "$200.00", cur: "$220.50", pnl: "+10.3%", pnlPos: true },
-  { sym: "KO", co: "Coca-Cola Co", qty: "80", buy: "$61.40", cur: "$58.90", pnl: "-4.1%", pnlPos: false },
-  { sym: "CVX", co: "Chevron Corp", qty: "25", buy: "$155.00", cur: "$162.30", pnl: "+4.7%", pnlPos: true },
-];
-
-const FEATURES = [
+const FAQS = [
   {
-    icon: "📊",
-    title: "Portfolio dashboard",
-    body: "Total invested, current value, and overall profit or loss in both dollars and percent — calculated from the holdings you upload.",
+    q: "What does PortfolioHQ do?",
+    a: "It turns the holdings export from your broker into a clear report: total invested, current value, overall gain or loss, allocation by sector, your largest positions and the result on every holding. You can also keep notes on what you find.",
   },
   {
-    icon: "📋",
-    title: "Full holdings table",
-    body: "Every position with symbol, company, quantity, buy price, current price, and its own gain/loss in dollars and percent.",
+    q: "Which files and brokers work?",
+    a: "Any broker that exports holdings as .xlsx or .csv. Column headings are matched flexibly, so “Symbol” or “Ticker” and “Quantity” or “Shares” are all recognised. Only a symbol and a quantity are required.",
   },
   {
-    icon: "🥧",
-    title: "Sector allocation chart",
-    body: "A breakdown of how your value is spread across sectors, so concentration is obvious at a glance instead of buried in a spreadsheet.",
+    q: "Where do current prices come from?",
+    a: "From the file you upload. PortfolioHQ reads the current-price column in your export and reports on it, so your figures reflect the prices in that file. There is no live market data feed — to bring the report up to date, upload a fresh export from your broker.",
   },
   {
-    icon: "📈",
-    title: "Top holdings chart",
-    body: "Your largest positions by current value, ranked — a quick read on what actually drives your portfolio.",
+    q: "What does it cost?",
+    a: "PortfolioHQ is complimentary at present and opening an account requires no payment details.",
   },
   {
-    icon: "✍️",
-    title: "Notes and published posts",
-    body: "Write up what you find in a rich-text editor, keep it private as a draft, or publish it to the public blog.",
+    q: "How is my data handled?",
+    a: "Passwords are hashed with bcrypt and sessions are held in httpOnly cookies that page scripts cannot read. We never ask for brokerage log-ins, and you can delete a portfolio at any time. This site loads Google Tag Manager for basic analytics, which collects ordinary web-usage data; your holdings are not sent to it.",
+  },
+  {
+    q: "Is any of this financial advice?",
+    a: "No. PortfolioHQ reports on the holdings you provide. It does not give advice, make recommendations or place trades.",
   },
 ];
 
-export default function LandingPage() {
+export default function HomePage() {
+  const { byValue, total, gain, gainPct, cost, rows, sectors } = sample;
+  const top = byValue.slice(0, 5);
+  const rest = byValue.slice(5);
+  const restMv = rest.reduce((a, r) => a + r.mv, 0);
+  const pmax = byValue[0].w;
+
   return (
-    <div className={styles.page}>
+    <div className="phq">
+      <MarketingFonts />
       <RedirectAuthed />
+      <SiteHeader />
 
-      {/* Google Fonts for this page only */}
-      <link rel="preconnect" href="https://fonts.googleapis.com" />
-      <link
-        href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600&display=swap"
-        rel="stylesheet"
-      />
-
-      {/* NAV */}
-      <nav className={styles.nav}>
-        <div className={styles.navInner}>
-          <Link href="/" className={styles.logo}>
-            Portfolio<span className={styles.logoAccent}>HQ</span>
-          </Link>
-          <div className={styles.navLinks}>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#features">Features</a>
-            <a href="#faq">FAQ</a>
-            <Link href="/blog">Blog</Link>
-            <Link href="/login">Sign In</Link>
-            <SignupButton className={styles.btnNav}>Create free account</SignupButton>
-          </div>
-        </div>
-      </nav>
-
-      {/* HERO */}
-      <section className={styles.hero}>
-        <div className={styles.heroInner}>
-          <div className={styles.heroText}>
-            <h1>
-              See your whole portfolio <em>clearly</em>
-            </h1>
-            <p className={styles.heroLead}>
-              Upload the holdings export from your broker and PortfolioHQ turns it into a dashboard
-              — total value, gain and loss per position, sector breakdown, and your largest
-              positions at a glance.
-            </p>
-            <div className={styles.heroActions}>
-              <SignupButton className={styles.btnPrimary}>Create free account</SignupButton>
-              <a href="#how-it-works" className={styles.btnSecondary}>
-                See how it works ↓
-              </a>
+      <main id="main">
+        {/* ---------- HERO ---------- */}
+        <section className="hero" aria-labelledby="hero-title">
+          <Guilloche />
+          <div className="wrap">
+            <div>
+              <h1 id="hero-title">Your holdings, set out plainly.</h1>
+              <p className="lede">
+                Upload the holdings export from your broker. PortfolioHQ returns a considered
+                account of value, performance and concentration, with no spreadsheets to maintain.
+              </p>
+              <div className="actions">
+                <Link className="btn btn-primary" href="/register">
+                  Open an account
+                </Link>
+                <Link className="btn btn-ghost-light" href="/sample">
+                  View a sample report
+                </Link>
+              </div>
+              <p className="fine">
+                <span>Complimentary at present.</span> No payment details required.
+              </p>
             </div>
-            <div className={styles.priceCallout}>
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-              </svg>
-              <span>
-                <strong>Free to use.</strong> No card, no payment details — just a name, email and password.
-              </span>
-            </div>
-          </div>
 
-          <div className={styles.heroCard}>
-            <div className={styles.heroCardTitle}>Holdings table — sample data</div>
-            <table className={styles.miniTable}>
-              <thead>
-                <tr>
-                  <th>Holding</th>
-                  <th>Qty</th>
-                  <th>Buy</th>
-                  <th>Current</th>
-                  <th>P&amp;L</th>
-                </tr>
-              </thead>
-              <tbody>
-                {SAMPLE_HOLDINGS.map((h) => (
-                  <tr key={h.sym}>
-                    <td>
-                      <span>{h.sym}</span>
-                      <span className={styles.co}>{h.co}</span>
-                    </td>
-                    <td>{h.qty}</td>
-                    <td>{h.buy}</td>
-                    <td>{h.cur}</td>
-                    <td className={h.pnlPos ? styles.pos : styles.neg}>{h.pnl}</td>
+            <figure className="statement" aria-label="Illustrative statement of holdings" style={{ margin: 0 }}>
+              <header>
+                <div className="st-title">Statement of holdings</div>
+                <div className="st-meta">
+                  Illustrative portfolio
+                  <br />
+                  <span>{rows.length} positions</span>
+                </div>
+              </header>
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Holding</th>
+                    <th scope="col">Market value</th>
+                    <th scope="col">Weight</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className={styles.heroCardFooter}>
-              <span className={styles.totalVal}>Example only</span>
-              <span className={styles.totalPnl}>Your numbers come from your upload</span>
-            </div>
+                </thead>
+                <tbody>
+                  {top.map((r, i) => (
+                    <tr key={r.s} className="reveal-row" style={{ animationDelay: `${0.15 + i * 0.08}s` }}>
+                      <td>
+                        <strong>{r.s}</strong>
+                        <span className="co">{r.n}</span>
+                      </td>
+                      <td>{usd(r.mv)}</td>
+                      <td>{pct(r.w)}</td>
+                    </tr>
+                  ))}
+                  <tr className="reveal-row" style={{ animationDelay: `${0.15 + 5 * 0.08}s` }}>
+                    <td>Other holdings ({rest.length})</td>
+                    <td>{usd(restMv)}</td>
+                    <td>{pct(restMv / total)}</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td>Current value</td>
+                    <td className="num">{usd(total)}</td>
+                    <td>100%</td>
+                  </tr>
+                </tfoot>
+              </table>
+              <div className="st-foot">
+                <span>Unrealised gain</span>
+                <span className="pos num">
+                  {usd(gain, true)} ({pct(gainPct, true)})
+                </span>
+              </div>
+              <div className="seal" aria-hidden="true">P</div>
+            </figure>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* WHAT'S TRUE / HOW WE HANDLE THINGS */}
-      <div className={styles.trustBar}>
-        <div className={styles.trustBarInner}>
-          <div className={styles.trustItem}>
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-            Passwords hashed with bcrypt
-          </div>
-          <div className={styles.trustItem}>
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-            Sessions in httpOnly cookies
-          </div>
-          <div className={styles.trustItem}>
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            .xlsx and .csv uploads
-          </div>
-          <div className={styles.trustItem}>
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-            </svg>
-            Delete a portfolio any time
-          </div>
-        </div>
-      </div>
-
-      {/* HOW IT WORKS */}
-      <section className={styles.section} id="how-it-works">
-        <div className={styles.sectionInner}>
-          <div className={styles.sectionLabel}>Simple Process</div>
-          <h2 className={styles.sectionTitle}>Two steps to a clear picture</h2>
-          <p className={styles.sectionLead}>
-            No spreadsheet formulas to maintain, and nothing to install.
-          </p>
-          <div className={styles.steps}>
-            <div className={styles.step}>
-              <div className={styles.stepNum}>1</div>
-              <h3>Upload your holdings</h3>
+        {/* ---------- VALUE ---------- */}
+        <section className="section value" id="value" aria-labelledby="value-title">
+          <div className="wrap">
+            <div className="intro section-head">
+              <h2 id="value-title">A private view of what you own.</h2>
               <p>
-                Export your holdings from your broker as .xlsx or .csv and upload the file. Column
-                headers are matched flexibly — ticker or symbol, qty or shares, and so on. Only a
-                symbol and a quantity are required.
+                Holdings tend to live in broker exports and spreadsheets that take effort to read.
+                PortfolioHQ reads the file you already have and sets out the position plainly.
               </p>
             </div>
-            <div className={styles.step}>
-              <div className={styles.stepNum}>2</div>
-              <h3>Read your dashboard</h3>
-              <p>
-                You get total invested, current value and overall profit or loss, plus a sector
-                allocation chart, your top holdings by value, and a full table with per-position
-                gain and loss.
-              </p>
-            </div>
+            <ul className="pillars">
+              <li>
+                <h3>Value</h3>
+                <p>Total invested against current value, with overall gain or loss in dollars and percent.</p>
+              </li>
+              <li>
+                <h3>Concentration</h3>
+                <p>Allocation by sector and your largest positions by value, so exposure is visible rather than inferred.</p>
+              </li>
+              <li>
+                <h3>Result</h3>
+                <p>Gain or loss on every holding, set out in a single table you can sort and search.</p>
+              </li>
+            </ul>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FEATURES */}
-      <section className={`${styles.section} ${styles.featuresBg}`} id="features">
-        <div className={styles.sectionInner}>
-          <div className={styles.sectionLabel}>What You Get</div>
-          <h2 className={styles.sectionTitle}>What PortfolioHQ does today</h2>
-          <p className={styles.sectionLead}>
-            This list is what is actually built and working — nothing here is coming soon.
-          </p>
-          <div className={styles.featuresGrid}>
-            {FEATURES.map((f) => (
-              <div key={f.title} className={styles.feature}>
-                <div className={styles.featureIcon}>{f.icon}</div>
+        {/* ---------- HOW IT WORKS ---------- */}
+        <section className="section how" id="how" aria-labelledby="how-title">
+          <div className="wrap">
+            <div className="section-head">
+              <h2 id="how-title">Two steps. No formulas.</h2>
+              <p>Nothing to install and no spreadsheet to maintain.</p>
+            </div>
+            <ol className="steps" style={{ listStyle: "none", marginLeft: 0, padding: 0 }}>
+              <li className="step">
+                <span className="n" aria-hidden="true">1</span>
                 <div>
-                  <h3>{f.title}</h3>
-                  <p>{f.body}</p>
+                  <h3>Export and upload</h3>
+                  <p>
+                    Download your holdings from your broker as .xlsx or .csv and upload the file.
+                    Column headings are recognised flexibly. Only a symbol and a quantity are
+                    required.
+                  </p>
+                </div>
+              </li>
+              <li className="step">
+                <span className="n" aria-hidden="true">2</span>
+                <div>
+                  <h3>Read your report</h3>
+                  <p>
+                    Value, gain or loss, sector allocation and your largest positions, calculated
+                    from your file and ready to review.
+                  </p>
+                </div>
+              </li>
+            </ol>
+
+            <div className="preview">
+              <div className="preview-frame" aria-label="Preview of the portfolio report">
+                <div className="pv-bar">
+                  <span className="wordmark">Portfolio<b>HQ</b></span>
+                  <span>Portfolio overview</span>
+                </div>
+                <dl className="pv-kpis">
+                  <div><dt>Current value</dt><dd>{usd(total)}</dd></div>
+                  <div><dt>Total invested</dt><dd>{usd(cost)}</dd></div>
+                  <div><dt>Unrealised gain</dt><dd className="pos">{pct(gainPct, true)}</dd></div>
+                </dl>
+                <div className="pv-alloc">
+                  <p>Allocation by sector</p>
+                  <div className="pv-stack">
+                    {sectors.map((s) => (
+                      <span
+                        key={s.name}
+                        style={{ width: `${(s.w * 100).toFixed(2)}%`, background: s.col }}
+                        title={`${s.name} ${pct(s.w)}`}
+                      />
+                    ))}
+                  </div>
+                  <div className="pv-legend">
+                    {sectors.map((s) => (
+                      <span key={s.name}>
+                        <i style={{ background: s.col }} />
+                        {s.name}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+                <div className="pv-alloc">
+                  <p>Largest positions</p>
+                  <ol className="bars">
+                    {byValue.slice(0, 4).map((r) => (
+                      <li key={r.s}>
+                        <div className="row">
+                          <b>{r.s}</b>
+                          <span>
+                            {usd(r.mv)}
+                            <em>{pct(r.w)}</em>
+                          </span>
+                        </div>
+                        <div className="track">
+                          <div className="fill" style={{ width: `${((r.w / pmax) * 100).toFixed(1)}%` }} />
+                        </div>
+                      </li>
+                    ))}
+                  </ol>
                 </div>
               </div>
-            ))}
+              <div className="contents">
+                <h3>What the report contains</h3>
+                <dl>
+                  <div><dt>Portfolio summary</dt><dd>Total invested, current value and overall gain or loss.</dd></div>
+                  <div><dt>Holdings table</dt><dd>Every position with quantity, buy price, current price and its own result.</dd></div>
+                  <div><dt>Sector allocation</dt><dd>How your value is spread, so concentration is clear at a glance.</dd></div>
+                  <div><dt>Largest positions</dt><dd>Your holdings ranked by current value.</dd></div>
+                  <div><dt>Private notes</dt><dd>Record observations in a rich-text editor. Notes stay private unless you choose to publish them.</dd></div>
+                </dl>
+                <Link className="textlink" href="/sample">View the full sample report</Link>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* FAQ */}
-      <section className={styles.section} id="faq">
-        <div className={styles.sectionInner}>
-          <div className={styles.sectionLabel}>Questions Answered</div>
-          <h2 className={styles.sectionTitle}>Frequently asked questions</h2>
-          <FAQAccordion />
-        </div>
-      </section>
+        {/* ---------- SECURITY ---------- */}
+        <section className="section security" id="security" aria-labelledby="sec-title">
+          <div className="wrap">
+            <div className="section-head">
+              <h2 id="sec-title">Built to ask for as little as possible.</h2>
+              <p>The report needs a list of holdings. It does not need access to your accounts.</p>
+            </div>
+            <div>
+              <ul className="facts">
+                <li><h3>No brokerage log-ins</h3><p>You upload a file you export yourself. PortfolioHQ never connects to your accounts.</p></li>
+                <li><h3>Only what the report needs</h3><p>A symbol and a quantity for each holding. Account numbers are not required.</p></li>
+                <li><h3>Passwords hashed with bcrypt</h3><p>Your password is never stored in readable form.</p></li>
+                <li><h3>Sessions in httpOnly cookies</h3><p>Session tokens cannot be read by scripts running in the page.</p></li>
+                <li><h3>Delete whenever you choose</h3><p>Remove a portfolio from your account at any time.</p></li>
+                <li><h3>No payment details</h3><p>An account needs a name, an email address and a password. Nothing more.</p></li>
+              </ul>
+              <div className="notadvice">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
+                  <circle cx="12" cy="12" r="9.5" />
+                  <path d="M12 7.5v5.5M12 16.2v.3" />
+                </svg>
+                <p>
+                  <strong>A reporting tool, not an adviser.</strong> PortfolioHQ does not give
+                  advice, make recommendations, place trades or hold assets.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
 
-      {/* FOOTER */}
-      <footer className={styles.footer}>
-        <div className={styles.footerInner}>
-          <div className={styles.footerBrand}>
-            <Link href="/" className={styles.logo}>
-              Portfolio<span className={styles.logoAccent}>HQ</span>
-            </Link>
-            <p>Upload your holdings and see them clearly — value, gain and loss, and sector mix.</p>
+        {/* ---------- ACCESS ---------- */}
+        <section className="section access" id="access" aria-labelledby="access-title">
+          <div className="wrap">
+            <div className="section-head">
+              <h2 id="access-title">Complimentary access, for now.</h2>
+              <p>
+                PortfolioHQ is currently offered without charge, and opening an account requires no
+                payment details.
+              </p>
+            </div>
+            <div className="offer">
+              <div className="tier">Complimentary</div>
+              <div className="price">
+                <b>$0</b>
+                <span>at present</span>
+              </div>
+              <ul>
+                <li>Portfolio summary and full holdings table</li>
+                <li>Sector allocation and largest positions</li>
+                <li>.xlsx and .csv uploads</li>
+                <li>Private notes</li>
+              </ul>
+              <Link className="btn btn-primary" href="/register">Open an account</Link>
+              <p className="fine">No payment details required.</p>
+            </div>
           </div>
-          <div className={styles.footerLinks}>
-            <h4>Product</h4>
-            <a href="#how-it-works">How It Works</a>
-            <a href="#features">Features</a>
-            <a href="#faq">FAQ</a>
-            <Link href="/blog">Blog</Link>
+        </section>
+
+        {/* ---------- FAQ ---------- */}
+        <section className="section faq" id="faq" aria-labelledby="faq-title">
+          <div className="wrap">
+            <div className="section-head"><h2 id="faq-title">Questions</h2></div>
+            <div className="faq-list">
+              {FAQS.map((f) => (
+                <details key={f.q}>
+                  <summary>{f.q}</summary>
+                  <p>{f.a}</p>
+                </details>
+              ))}
+            </div>
           </div>
-          <div className={styles.footerLinks}>
-            <h4>Account</h4>
-            <Link href="/login">Sign In</Link>
-            <Link href="/register">Create Account</Link>
-            <Link href="/dashboard">My Dashboard</Link>
+        </section>
+
+        {/* ---------- CLOSING ---------- */}
+        <section className="closing" aria-labelledby="closing-title">
+          <div className="wrap">
+            <h2 id="closing-title">Begin with the file you already have.</h2>
+            <Link className="btn btn-primary" href="/register">Open an account</Link>
           </div>
-        </div>
-        <div className={styles.disclaimer}>
-          <strong>Important:</strong> PortfolioHQ is a portfolio tracking tool only.
-          Nothing on this website constitutes financial advice, investment advice, or a
-          recommendation to buy or sell any security. All investing carries risk. Please consult a
-          qualified financial adviser before making investment decisions.
-        </div>
-        <div className={styles.footerBottom}>
-          <p>© 2026 PortfolioHQ. All rights reserved.</p>
-        </div>
-      </footer>
+        </section>
+      </main>
+
+      <SiteFooter />
     </div>
   );
 }

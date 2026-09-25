@@ -3,7 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import "../marketing.css";
 import { useAuth } from "@/context/AuthContext";
+import { SiteHeader } from "@/components/marketing/SiteHeader";
+import { SiteFooter } from "@/components/marketing/SiteFooter";
+import { MarketingFonts } from "@/components/marketing/MarketingFonts";
+import { AuthAside } from "@/components/marketing/AuthAside";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -28,28 +33,64 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-12 bg-white p-8 rounded-lg shadow">
-      <h1 className="text-2xl font-bold mb-6">Login</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded border border-gray-300 px-3 py-2" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Password</label>
-          <input type="password" required value={password} onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded border border-gray-300 px-3 py-2" />
-        </div>
-        {error && <p className="text-red-600 text-sm">{error}</p>}
-        <button type="submit" disabled={submitting}
-          className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 disabled:opacity-50">
-          {submitting ? "Logging in…" : "Login"}
-        </button>
-      </form>
-      <p className="mt-4 text-sm text-gray-600">
-        No account? <Link href="/register" className="text-indigo-600">Register</Link>
-      </p>
+    <div className="phq">
+      <MarketingFonts />
+      <SiteHeader />
+
+      <main id="main">
+        <section className="account">
+          <div className="wrap">
+            <div>
+              <h1>Sign in</h1>
+              <p className="sub">Welcome back.</p>
+
+              <form className="form" onSubmit={handleSubmit} noValidate>
+                <div className="field">
+                  <label htmlFor="s-email">Email address</label>
+                  <input
+                    id="s-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="s-pass">Password</label>
+                  <input
+                    id="s-pass"
+                    name="password"
+                    type="password"
+                    autoComplete="current-password"
+                    required
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+
+                {error && (
+                  <p className="formerror" role="alert">
+                    {error}
+                  </p>
+                )}
+
+                <button className="btn btn-ink" type="submit" disabled={submitting}>
+                  {submitting ? "Signing in…" : "Sign in"}
+                </button>
+                <p className="alt">
+                  New to PortfolioHQ? <Link className="textlink" href="/register">Open an account</Link>
+                </p>
+              </form>
+            </div>
+
+            <AuthAside />
+          </div>
+        </section>
+      </main>
+
+      <SiteFooter />
     </div>
   );
 }

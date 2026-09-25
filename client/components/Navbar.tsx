@@ -9,8 +9,9 @@ export function Navbar() {
   const router = useRouter();
   const pathname = usePathname();
 
-  // Landing page provides its own header — hide the global navbar there.
-  if (pathname === "/") return null;
+  // Marketing pages carry their own header — hide the global navbar there.
+  const MARKETING_ROUTES = ["/", "/login", "/register", "/sample"];
+  if (MARKETING_ROUTES.includes(pathname)) return null;
 
   const handleLogout = async () => {
     await logout();

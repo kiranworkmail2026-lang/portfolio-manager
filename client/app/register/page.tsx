@@ -3,7 +3,12 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import "../marketing.css";
 import { useAuth } from "@/context/AuthContext";
+import { SiteHeader } from "@/components/marketing/SiteHeader";
+import { SiteFooter } from "@/components/marketing/SiteFooter";
+import { MarketingFonts } from "@/components/marketing/MarketingFonts";
+import { AuthAside } from "@/components/marketing/AuthAside";
 
 export default function RegisterPage() {
   const { register } = useAuth();
@@ -29,33 +34,79 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-12 bg-white p-8 rounded-lg shadow">
-      <h1 className="text-2xl font-bold mb-6">Register</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Name</label>
-          <input required value={name} onChange={(e) => setName(e.target.value)}
-            className="mt-1 w-full rounded border border-gray-300 px-3 py-2" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Email</label>
-          <input type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-            className="mt-1 w-full rounded border border-gray-300 px-3 py-2" />
-        </div>
-        <div>
-          <label className="block text-sm font-medium text-gray-700">Password</label>
-          <input type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)}
-            className="mt-1 w-full rounded border border-gray-300 px-3 py-2" />
-        </div>
-        {error && <p className="text-red-600 text-sm">{error}</p>}
-        <button type="submit" disabled={submitting}
-          className="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 disabled:opacity-50">
-          {submitting ? "Creating…" : "Create account"}
-        </button>
-      </form>
-      <p className="mt-4 text-sm text-gray-600">
-        Already have an account? <Link href="/login" className="text-indigo-600">Login</Link>
-      </p>
+    <div className="phq">
+      <MarketingFonts />
+      <SiteHeader />
+
+      <main id="main">
+        <section className="account">
+          <div className="wrap">
+            <div>
+              <h1>Open an account</h1>
+              <p className="sub">A name, an email address and a password. No payment details.</p>
+
+              <form className="form" onSubmit={handleSubmit} noValidate>
+                <div className="field">
+                  <label htmlFor="f-name">Full name</label>
+                  <input
+                    id="f-name"
+                    name="name"
+                    autoComplete="name"
+                    required
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="f-email">Email address</label>
+                  <input
+                    id="f-email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="field">
+                  <label htmlFor="f-pass">Password</label>
+                  <input
+                    id="f-pass"
+                    name="password"
+                    type="password"
+                    autoComplete="new-password"
+                    required
+                    aria-describedby="f-pass-hint"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <p className="hint" id="f-pass-hint">
+                    Choose a password you do not use elsewhere.
+                  </p>
+                </div>
+
+                {error && (
+                  <p className="formerror" role="alert">
+                    {error}
+                  </p>
+                )}
+
+                <button className="btn btn-ink" type="submit" disabled={submitting}>
+                  {submitting ? "Opening account…" : "Open account"}
+                </button>
+                <p className="alt">
+                  Already have an account? <Link className="textlink" href="/login">Sign in</Link>
+                </p>
+              </form>
+            </div>
+
+            <AuthAside />
+          </div>
+        </section>
+      </main>
+
+      <SiteFooter />
     </div>
   );
 }
