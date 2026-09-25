@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
@@ -17,8 +16,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	mopt "go.mongodb.org/mongo-driver/mongo/options"
 
-	"github.com/yuin/goldmark"
-
 	"portfolio-manager/server/config"
 	"portfolio-manager/server/middleware"
 	"portfolio-manager/server/models"
@@ -27,8 +24,8 @@ import (
 // ---- helpers ----
 
 var (
-	slugRe   = regexp.MustCompile(`[^a-z0-9]+`)
-	htmlTag  = regexp.MustCompile(`<[^>]*>`)
+	slugRe  = regexp.MustCompile(`[^a-z0-9]+`)
+	htmlTag = regexp.MustCompile(`<[^>]*>`)
 )
 
 func slugify(s string) string {
@@ -74,41 +71,11 @@ func makeExcerpt(html string, max int) string {
 	return strings.TrimSpace(string(r[:max])) + "…"
 }
 
-func mdToHTML(md string) (string, error) {
-	var buf bytes.Buffer
-	if err := goldmark.Convert([]byte(md), &buf); err != nil {
-		return "", err
-	}
-	return buf.String(), nil
-}
-
-// First non-empty markdown line, stripped of leading "#" markers, trimmed to 80 chars.
-func suggestTitle(md string) string {
-	for _, line := range strings.Split(md, "\n") {
-		l := strings.TrimSpace(line)
-		if l == "" {
-			continue
-		}
-		l = strings.TrimLeft(l, "#")
-		l = strings.TrimSpace(l)
-		if l == "" {
-			continue
-		}
-		if utf8.RuneCountInString(l) > 80 {
-			r := []rune(l)
-			return strings.TrimSpace(string(r[:80]))
-		}
-		return l
-	}
-	return "Untitled"
-}
-
 // ---- request shapes ----
 
 type createPostReq struct {
-	Title      string `json:"title"`
-	Content    string `json:"content"`
-	AnalysisID string `json:"analysisId,omitempty"`
+	Title   string `json:"title"`
+	Content string `json:"content"`
 }
 
 type updatePostReq struct {
@@ -120,8 +87,8 @@ type updatePostReq struct {
 // ---- handlers (authenticated, author-scoped) ----
 
 // CreatePost — POST /api/posts
-// If analysisId is given, seed content from that analysis (markdown -> HTML).
-// If title is empty, auto-suggest from analysis or content.
+// Creates a draft from the supplied title and HTML content.
+// If title is empty it defaults to "Untitled".
 func CreatePost(w http.ResponseWriter, r *http.Request) {
 	uid := middleware.UserIDFrom(r)
 	userID, err := primitive.ObjectIDFromHex(uid)
@@ -148,37 +115,6 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 
 	title := strings.TrimSpace(req.Title)
 	contentHTML := req.Content
-	var sourceAnalysisID *primitive.ObjectID
-
-	// Seed from analysis if provided
-	if req.AnalysisID != "" {
-		aid, err := primitive.ObjectIDFromHex(req.AnalysisID)
-		if err != nil {
-			writeErr(w, http.StatusBadRequest, "invalid analysisId")
-			return
-		}
-		var a models.Analysis
-		err = config.Analyses().FindOne(ctx, bson.M{"_id": aid, "userId": userID}).Decode(&a)
-		if err != nil {
-			writeErr(w, http.StatusNotFound, "analysis not found")
-			return
-		}
-		if a.Status != "success" || strings.TrimSpace(a.Answer) == "" {
-			writeErr(w, http.StatusBadRequest, "analysis has no answer to publish")
-			return
-		}
-		// Convert markdown answer to HTML for the rich text editor
-		html, err := mdToHTML(a.Answer)
-		if err != nil {
-			writeErr(w, http.StatusInternalServerError, "markdown render failed")
-			return
-		}
-		contentHTML = html
-		if title == "" {
-			title = suggestTitle(a.Answer)
-		}
-		sourceAnalysisID = &aid
-	}
 
 	if title == "" {
 		title = "Untitled"
@@ -188,16 +124,15 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	excerpt := makeExcerpt(contentHTML, 200)
 
 	post := models.Post{
-		AuthorID:         userID,
-		AuthorName:       author.Name,
-		Title:            title,
-		Slug:             "", // assigned on first publish
-		Content:          contentHTML,
-		Excerpt:          excerpt,
-		Status:           "draft",
-		SourceAnalysisID: sourceAnalysisID,
-		CreatedAt:        now,
-		UpdatedAt:        now,
+		AuthorID:   userID,
+		AuthorName: author.Name,
+		Title:      title,
+		Slug:       "", // assigned on first publish
+		Content:    contentHTML,
+		Excerpt:    excerpt,
+		Status:     "draft",
+		CreatedAt:  now,
+		UpdatedAt:  now,
 	}
 	res, err := config.Posts().InsertOne(ctx, post)
 	if err != nil {

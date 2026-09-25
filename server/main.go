@@ -48,14 +48,6 @@ func main() {
 		r.Delete("/{id}", handlers.Delete)
 	})
 
-	r.Route("/api/analyze", func(r chi.Router) {
-		r.Use(middleware.RequireAuth)
-		r.Post("/", handlers.Analyze)
-		r.Get("/history", handlers.AnalysisHistory)
-		r.Get("/{id}", handlers.AnalysisGet)
-		r.Delete("/{id}", handlers.AnalysisDelete)
-	})
-
 	// Author-scoped post management (drafts + published).
 	r.Route("/api/posts", func(r chi.Router) {
 		r.Use(middleware.RequireAuth)

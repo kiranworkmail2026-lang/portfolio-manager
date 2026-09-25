@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { PrivateRoute } from "@/components/PrivateRoute";
 import { api, Post } from "@/lib/api";
 
@@ -12,9 +13,11 @@ function formatDate(s: string) {
 }
 
 export default function MyPostsPage() {
+  const router = useRouter();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [creating, setCreating] = useState(false);
 
   const load = () => {
     setLoading(true);
@@ -25,6 +28,17 @@ export default function MyPostsPage() {
   };
 
   useEffect(() => { load(); }, []);
+
+  const handleCreate = async () => {
+    setCreating(true);
+    try {
+      const r = await api.post("/api/posts", { title: "", content: "" });
+      router.push(`/posts/${r.data.data.id}/edit`);
+    } catch (e: any) {
+      setError(e?.response?.data?.message || "Could not create post");
+      setCreating(false);
+    }
+  };
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this post permanently? This cannot be undone.")) return;
@@ -41,6 +55,13 @@ export default function MyPostsPage() {
       <div className="max-w-4xl mx-auto p-6">
         <div className="flex items-center justify-between mb-6">
           <h1 className="text-2xl font-bold">My Posts</h1>
+          <button
+            onClick={handleCreate}
+            disabled={creating}
+            className="bg-indigo-600 text-white text-sm px-4 py-2 rounded hover:bg-indigo-700 disabled:opacity-50"
+          >
+            {creating ? "Creating…" : "New post"}
+          </button>
         </div>
 
         {loading && <p className="text-gray-500">Loading…</p>}
@@ -48,7 +69,7 @@ export default function MyPostsPage() {
 
         {!loading && posts.length === 0 && (
           <div className="bg-white p-8 rounded-lg shadow text-center text-gray-600">
-            No posts yet. Run an <Link href="/analyze" className="text-indigo-600">analysis</Link> and save it as a draft to get started.
+            No posts yet. Choose <strong>New post</strong> above to start a draft.
           </div>
         )}
 
