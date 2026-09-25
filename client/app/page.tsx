@@ -1,59 +1,58 @@
 import Link from "next/link";
 import type { Metadata } from "next";
 import styles from "./landing.module.css";
-import {
-  FAQAccordion,
-  SignupModalButton,
-  RedirectAuthed,
-} from "@/components/LandingInteractive";
+import { FAQAccordion, SignupButton, RedirectAuthed } from "@/components/LandingInteractive";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "PortfolioHQ — Track your portfolio against the world's best investors",
+  title: "PortfolioHQ — Upload your holdings, see your portfolio clearly",
   description:
-    "Track your investments against Warren Buffett's Berkshire Hathaway 13F portfolio. Know exactly what to buy, what to reduce, and why. $5 per year.",
+    "Upload a CSV or Excel export of your stock holdings and get a clear dashboard: total value, gain/loss per position, sector breakdown, and your largest positions at a glance. Free to use.",
   alternates: { canonical: `${SITE_URL}/` },
   openGraph: {
-    title: "PortfolioHQ — Track your portfolio against the world's best investors",
+    title: "PortfolioHQ — Upload your holdings, see your portfolio clearly",
     description:
-      "Track your investments against Warren Buffett's Berkshire Hathaway 13F portfolio. Know exactly what to buy, what to reduce, and why.",
+      "Upload a CSV or Excel export of your holdings and get a clear dashboard: total value, gain/loss, sector breakdown, and your largest positions at a glance.",
     url: `${SITE_URL}/`,
     type: "website",
   },
 };
 
-const HERO_HOLDINGS = [
-  { sym: "AAPL", co: "Apple Inc", pnl: "+40.6%", pnlPos: true, gap: "+2.1%", gapPos: true, action: "✓ Hold", actionAdd: true },
-  { sym: "BAC", co: "Bank of America", pnl: "+18.4%", pnlPos: true, gap: "+4.8%", gapPos: false, action: "▼ Reduce $1,928", actionAdd: false },
-  { sym: "KO", co: "Coca-Cola Co", pnl: "+12.3%", pnlPos: true, gap: "+9.2%", gapPos: false, action: "▼ Reduce $4,888", actionAdd: false },
-  { sym: "OXY", co: "Occidental Petroleum", pnl: "+6.1%", pnlPos: true, gap: "-5.4%", gapPos: true, action: "▲ Add $1,032", actionAdd: true },
-  { sym: "CVX", co: "Chevron Corp", pnl: "+20.7%", pnlPos: true, gap: "-2.3%", gapPos: true, action: "▲ Add $874", actionAdd: true },
+// Illustrative sample data — labelled as a sample in the UI below.
+const SAMPLE_HOLDINGS = [
+  { sym: "AAPL", co: "Apple Inc", qty: "50", buy: "$142.50", cur: "$178.20", pnl: "+25.1%", pnlPos: true },
+  { sym: "MSFT", co: "Microsoft Corp", qty: "30", buy: "$280.00", cur: "$338.50", pnl: "+20.9%", pnlPos: true },
+  { sym: "VTI", co: "Vanguard Total Market", qty: "100", buy: "$200.00", cur: "$220.50", pnl: "+10.3%", pnlPos: true },
+  { sym: "KO", co: "Coca-Cola Co", qty: "80", buy: "$61.40", cur: "$58.90", pnl: "-4.1%", pnlPos: false },
+  { sym: "CVX", co: "Chevron Corp", qty: "25", buy: "$155.00", cur: "$162.30", pnl: "+4.7%", pnlPos: true },
 ];
 
 const FEATURES = [
-  { icon: "📊", title: "Live portfolio dashboard", body: "See your full portfolio at a glance — market value, gain/loss per position, and your allocation versus the benchmark target, all in one place." },
-  { icon: "🎯", title: "Exact rebalance amounts", body: "Not just percentages — actual dollar amounts. “Add $874 to OXY” is far more useful than “you’re 2.3% underweight.”" },
-  { icon: "🔄", title: "One-click price refresh", body: "Prices update instantly from live market data. Your gain/loss totals, sector breakdowns, and rebalance amounts all recalculate automatically." },
-  { icon: "🏷️", title: "Sector breakdown", body: "See exactly how much you hold across Technology, Financials, Energy, Consumer Staples, and every other sector — so you understand your real exposure." },
-  { icon: "📁", title: "Easy broker import", body: "Works with any broker that exports CSV. Alpaca, INDmoney, Interactive Brokers, Schwab, and more. Or paste manually — whichever is easier." },
-  { icon: "🔒", title: "Your data stays private", body: "Your portfolio data is encrypted and never sold, shared, or used for advertising. It belongs to you — we are a subscription service, not a data business." },
-];
-
-const TESTIMONIALS = [
-  { quote: "I've been investing for 20 years and this is the clearest portfolio tool I've used. I stopped guessing what to rebalance and just follow the numbers. Worth every penny.", attr: "Verified member" },
-  { quote: "The rebalance panel is brilliant. It tells me exactly how much to add or reduce — in dollars, not confusing percentages. I acted on it last month and it paid off immediately.", attr: "Verified member" },
-  { quote: "At $5 a year I thought it couldn't be good. I was wrong. The live dashboard has completely changed how I track my portfolio. I check it every morning with my coffee.", attr: "Verified member" },
-];
-
-const PRICING_FEATURES = [
-  "Full portfolio dashboard with live prices",
-  "Comparison against Buffett's Berkshire 13F portfolio",
-  "Exact rebalance amounts in dollars",
-  "Sector breakdown across your holdings",
-  "Upload from any broker (CSV or manual)",
-  "Unlimited portfolio refreshes",
-  "Priority email support",
-  "All future features included",
+  {
+    icon: "📊",
+    title: "Portfolio dashboard",
+    body: "Total invested, current value, and overall profit or loss in both dollars and percent — calculated from the holdings you upload.",
+  },
+  {
+    icon: "📋",
+    title: "Full holdings table",
+    body: "Every position with symbol, company, quantity, buy price, current price, and its own gain/loss in dollars and percent.",
+  },
+  {
+    icon: "🥧",
+    title: "Sector allocation chart",
+    body: "A breakdown of how your value is spread across sectors, so concentration is obvious at a glance instead of buried in a spreadsheet.",
+  },
+  {
+    icon: "📈",
+    title: "Top holdings chart",
+    body: "Your largest positions by current value, ranked — a quick read on what actually drives your portfolio.",
+  },
+  {
+    icon: "✍️",
+    title: "Notes and published posts",
+    body: "Write up what you find in a rich-text editor, keep it private as a draft, or publish it to the public blog.",
+  },
 ];
 
 export default function LandingPage() {
@@ -77,12 +76,10 @@ export default function LandingPage() {
           <div className={styles.navLinks}>
             <a href="#how-it-works">How It Works</a>
             <a href="#features">Features</a>
-            <a href="#pricing">Pricing</a>
             <a href="#faq">FAQ</a>
+            <Link href="/blog">Blog</Link>
             <Link href="/login">Sign In</Link>
-            <SignupModalButton className={styles.btnNav}>
-              Start Free Trial
-            </SignupModalButton>
+            <SignupButton className={styles.btnNav}>Create free account</SignupButton>
           </div>
         </div>
       </nav>
@@ -91,17 +88,16 @@ export default function LandingPage() {
       <section className={styles.hero}>
         <div className={styles.heroInner}>
           <div className={styles.heroText}>
-            <div className={styles.heroEyebrow}>Trusted by Serious Investors</div>
             <h1>
-              Know exactly what to do with your <em>investments</em>
+              See your whole portfolio <em>clearly</em>
             </h1>
             <p className={styles.heroLead}>
-              PortfolioHQ tracks your holdings against Warren Buffett&apos;s Berkshire Hathaway portfolio — showing you precisely which stocks to add, reduce, or hold, and by exactly how much.
+              Upload the holdings export from your broker and PortfolioHQ turns it into a dashboard
+              — total value, gain and loss per position, sector breakdown, and your largest
+              positions at a glance.
             </p>
             <div className={styles.heroActions}>
-              <SignupModalButton className={styles.btnPrimary}>
-                Get Started — $5/year
-              </SignupModalButton>
+              <SignupButton className={styles.btnPrimary}>Create free account</SignupButton>
               <a href="#how-it-works" className={styles.btnSecondary}>
                 See how it works ↓
               </a>
@@ -111,76 +107,72 @@ export default function LandingPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               <span>
-                <strong>$5/year</strong> — less than 2 cups of coffee. Cancel any time.
+                <strong>Free to use.</strong> No card, no payment details — just a name, email and password.
               </span>
             </div>
           </div>
 
           <div className={styles.heroCard}>
-            <div className={styles.heroCardTitle}>Your Portfolio — Live View</div>
+            <div className={styles.heroCardTitle}>Holdings table — sample data</div>
             <table className={styles.miniTable}>
               <thead>
                 <tr>
                   <th>Holding</th>
+                  <th>Qty</th>
+                  <th>Buy</th>
+                  <th>Current</th>
                   <th>P&amp;L</th>
-                  <th>vs Target</th>
-                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                {HERO_HOLDINGS.map((h) => (
+                {SAMPLE_HOLDINGS.map((h) => (
                   <tr key={h.sym}>
                     <td>
                       <span>{h.sym}</span>
                       <span className={styles.co}>{h.co}</span>
                     </td>
+                    <td>{h.qty}</td>
+                    <td>{h.buy}</td>
+                    <td>{h.cur}</td>
                     <td className={h.pnlPos ? styles.pos : styles.neg}>{h.pnl}</td>
-                    <td className={h.gapPos ? styles.pos : styles.neg}>{h.gap}</td>
-                    <td className={h.actionAdd ? styles.add : styles.reduce}>{h.action}</td>
                   </tr>
                 ))}
               </tbody>
             </table>
             <div className={styles.heroCardFooter}>
-              <span className={styles.totalVal}>$38,478</span>
-              <span className={styles.totalPnl}>+$8,366 &nbsp;(+27.8%)</span>
+              <span className={styles.totalVal}>Example only</span>
+              <span className={styles.totalPnl}>Your numbers come from your upload</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* TRUST BAR */}
+      {/* WHAT'S TRUE / HOW WE HANDLE THINGS */}
       <div className={styles.trustBar}>
         <div className={styles.trustBarInner}>
           <div className={styles.trustItem}>
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
             </svg>
-            Bank-grade SSL encryption
+            Passwords hashed with bcrypt
           </div>
           <div className={styles.trustItem}>
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
             </svg>
-            Your data never shared
+            Sessions in httpOnly cookies
           </div>
           <div className={styles.trustItem}>
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            Stripe-secured payments
+            .xlsx and .csv uploads
           </div>
           <div className={styles.trustItem}>
             <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
             </svg>
-            Cancel any time, instantly
-          </div>
-          <div className={styles.trustItem}>
-            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-            </svg>
-            Email support 7 days/week
+            Delete a portfolio any time
           </div>
         </div>
       </div>
@@ -189,23 +181,28 @@ export default function LandingPage() {
       <section className={styles.section} id="how-it-works">
         <div className={styles.sectionInner}>
           <div className={styles.sectionLabel}>Simple Process</div>
-          <h2 className={styles.sectionTitle}>Up and running in 3 minutes</h2>
-          <p className={styles.sectionLead}>No spreadsheets. No confusing finance jargon. Just clear, actionable guidance.</p>
+          <h2 className={styles.sectionTitle}>Two steps to a clear picture</h2>
+          <p className={styles.sectionLead}>
+            No spreadsheet formulas to maintain, and nothing to install.
+          </p>
           <div className={styles.steps}>
             <div className={styles.step}>
               <div className={styles.stepNum}>1</div>
               <h3>Upload your holdings</h3>
-              <p>Download your holdings CSV from your broker (Alpaca, Interactive Brokers, Schwab, etc.) and upload it directly — or paste your positions manually in a simple format.</p>
+              <p>
+                Export your holdings from your broker as .xlsx or .csv and upload the file. Column
+                headers are matched flexibly — ticker or symbol, qty or shares, and so on. Only a
+                symbol and a quantity are required.
+              </p>
             </div>
             <div className={styles.step}>
               <div className={styles.stepNum}>2</div>
-              <h3>We analyse against Berkshire</h3>
-              <p>Your portfolio is instantly compared to Warren Buffett&apos;s most recent 13F filing. You see every position&apos;s target weight, your current weight, and the exact gap.</p>
-            </div>
-            <div className={styles.step}>
-              <div className={styles.stepNum}>3</div>
-              <h3>Get clear actions</h3>
-              <p>No guessing. You get a plain-English list: &ldquo;Add $1,032 to OXY&rdquo; or &ldquo;Reduce KO by $4,888&rdquo; — updated whenever you refresh. You decide what to act on.</p>
+              <h3>Read your dashboard</h3>
+              <p>
+                You get total invested, current value and overall profit or loss, plus a sector
+                allocation chart, your top holdings by value, and a full table with per-position
+                gain and loss.
+              </p>
             </div>
           </div>
         </div>
@@ -215,8 +212,10 @@ export default function LandingPage() {
       <section className={`${styles.section} ${styles.featuresBg}`} id="features">
         <div className={styles.sectionInner}>
           <div className={styles.sectionLabel}>What You Get</div>
-          <h2 className={styles.sectionTitle}>Everything you need, nothing you don&apos;t</h2>
-          <p className={styles.sectionLead}>Designed for investors who want clarity, not complexity.</p>
+          <h2 className={styles.sectionTitle}>What PortfolioHQ does today</h2>
+          <p className={styles.sectionLead}>
+            This list is what is actually built and working — nothing here is coming soon.
+          </p>
           <div className={styles.featuresGrid}>
             {FEATURES.map((f) => (
               <div key={f.title} className={styles.feature}>
@@ -225,59 +224,6 @@ export default function LandingPage() {
                   <h3>{f.title}</h3>
                   <p>{f.body}</p>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* PRICING */}
-      <section className={`${styles.section} ${styles.pricingBg}`} id="pricing">
-        <div className={`${styles.sectionInner} ${styles.pricingInner}`}>
-          <div className={styles.sectionLabel} style={{ display: "block" }}>Simple Pricing</div>
-          <h2 className={styles.sectionTitle}>One plan. One price. No surprises.</h2>
-          <p className={styles.sectionLead} style={{ margin: "0 auto" }}>
-            We believe great investment tools should be affordable for everyone — not just hedge funds.
-          </p>
-          <div className={styles.pricingCard}>
-            <div className={styles.pricingHeader}>
-              <h3>Annual Membership</h3>
-              <div className={styles.priceBig}>
-                <sup>$</sup>5
-              </div>
-              <div className={styles.pricePeriod}>per year — billed once annually</div>
-            </div>
-            <div className={styles.pricingBody}>
-              <ul className={styles.pricingList}>
-                {PRICING_FEATURES.map((f) => (
-                  <li key={f}>
-                    <span className={styles.check}>✓</span> {f}
-                  </li>
-                ))}
-              </ul>
-              <SignupModalButton className={styles.pricingCta}>
-                Start Your Membership →
-              </SignupModalButton>
-              <p className={styles.pricingNote}>
-                Secure payment via Stripe. Cancel any time. No questions asked.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className={`${styles.section} ${styles.testimonialsBg}`}>
-        <div className={styles.sectionInner}>
-          <div className={styles.sectionLabel}>Member Stories</div>
-          <h2 className={styles.sectionTitle}>What our members say</h2>
-          <p className={styles.sectionLead}>Real members, real results.</p>
-          <div className={styles.testimonials}>
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className={styles.testimonial}>
-                <div className={styles.stars}>★★★★★</div>
-                <p>&ldquo;{t.quote}&rdquo;</p>
-                <div className={styles.testimonialAttr}>— {t.attr}</div>
               </div>
             ))}
           </div>
@@ -300,14 +246,14 @@ export default function LandingPage() {
             <Link href="/" className={styles.logo}>
               Portfolio<span className={styles.logoAccent}>HQ</span>
             </Link>
-            <p>Clear investment tracking for serious, experienced investors. Know what to do with your money.</p>
+            <p>Upload your holdings and see them clearly — value, gain and loss, and sector mix.</p>
           </div>
           <div className={styles.footerLinks}>
             <h4>Product</h4>
             <a href="#how-it-works">How It Works</a>
             <a href="#features">Features</a>
-            <a href="#pricing">Pricing</a>
-            <Link href="/dashboard">Dashboard</Link>
+            <a href="#faq">FAQ</a>
+            <Link href="/blog">Blog</Link>
           </div>
           <div className={styles.footerLinks}>
             <h4>Account</h4>
@@ -315,19 +261,15 @@ export default function LandingPage() {
             <Link href="/register">Create Account</Link>
             <Link href="/dashboard">My Dashboard</Link>
           </div>
-          <div className={styles.footerLinks}>
-            <h4>Legal</h4>
-            <Link href="/privacy">Privacy Policy</Link>
-            <Link href="/terms">Terms of Service</Link>
-            <Link href="/disclaimer">Investment Disclaimer</Link>
-          </div>
         </div>
         <div className={styles.disclaimer}>
-          <strong>Important:</strong> PortfolioHQ is a portfolio tracking tool only. Nothing on this website constitutes financial advice, investment advice, or a recommendation to buy or sell any security. Past performance of any portfolio or strategy is not indicative of future results. All investment decisions carry risk. Please consult a qualified financial advisor before making investment decisions.
+          <strong>Important:</strong> PortfolioHQ is a portfolio tracking tool only.
+          Nothing on this website constitutes financial advice, investment advice, or a
+          recommendation to buy or sell any security. All investing carries risk. Please consult a
+          qualified financial adviser before making investment decisions.
         </div>
         <div className={styles.footerBottom}>
           <p>© 2026 PortfolioHQ. All rights reserved.</p>
-          <p>Made for serious investors who value clarity.</p>
         </div>
       </footer>
     </div>

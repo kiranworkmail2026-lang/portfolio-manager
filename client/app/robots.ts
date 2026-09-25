@@ -11,7 +11,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: [
           "/dashboard",
           "/upload",
-          "/analyze",
           "/posts",
           "/login",
           "/register",

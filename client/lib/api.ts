@@ -38,7 +38,6 @@ export type Post = {
   content: string;
   excerpt: string;
   status: "draft" | "published";
-  sourceAnalysisId?: string;
   createdAt: string;
   updatedAt: string;
   publishedAt?: string;

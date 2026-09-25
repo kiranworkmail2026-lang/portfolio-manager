@@ -8,28 +8,28 @@ type FAQ = { q: string; a: string };
 
 const FAQS: FAQ[] = [
   {
-    q: "Which famous portfolio do you track against?",
-    a: "PortfolioHQ tracks your holdings against Warren Buffett's Berkshire Hathaway portfolio — sourced from publicly filed SEC 13F filings. We update the model portfolio whenever Berkshire publishes a new 13F filing (typically once per quarter, ~45 days after quarter-end).",
+    q: "What does PortfolioHQ actually do?",
+    a: "You upload a spreadsheet of your holdings and it becomes a dashboard: total invested, current value, overall profit or loss, a sector allocation chart, your largest positions by value, and a table showing gain or loss for every position. You can also write notes on what you find and publish them to the blog.",
   },
   {
-    q: "Which brokers are supported?",
-    a: "Any broker that lets you export your holdings as a CSV file — including Alpaca, INDmoney, Interactive Brokers, Charles Schwab, Fidelity, TD Ameritrade, and many others. You can also enter your holdings manually in a simple format if you prefer.",
+    q: "What file formats and brokers work?",
+    a: "Any .xlsx or .csv file works, from any broker that can export one — or you can build the sheet yourself. Column headers are matched case-insensitively and common aliases are accepted, so “ticker” or “symbol”, “qty”, “shares” or “quantity” all work. Only a symbol and a quantity are required per row; name, buy price, current price, sector and asset type are optional.",
   },
   {
-    q: "Is my financial data safe?",
-    a: "Yes. All data is encrypted in transit and at rest. We never share, sell, or use your portfolio data for any purpose other than showing you your dashboard. We are a subscription service — your data is not our product. Payments are processed securely by Stripe.",
+    q: "Does it fetch live market prices?",
+    a: "No. Current prices come from the current-price column in the file you upload, so your dashboard reflects the prices in that export. To update your figures, upload a fresh export from your broker. There is no live market data feed at the moment.",
   },
   {
-    q: "Can I cancel my membership?",
-    a: "Yes, any time — instantly, from your account page, with no questions asked. If you cancel within 30 days of signing up, we'll give you a full refund. No hoops, no phone calls required.",
+    q: "What does it cost?",
+    a: "Nothing. There is no payment, no card details and no paid tier — you create an account with a name, an email and a password, and everything described on this page is available. If paid plans are ever introduced, that will be made clear before anything changes.",
   },
   {
-    q: "Is this financial advice?",
-    a: "No. PortfolioHQ is a portfolio tracking and analysis tool. We show you how your holdings compare to a specific public portfolio — Berkshire Hathaway's 13F filing. All investment decisions are yours to make. We strongly recommend consulting a qualified financial advisor for personalised advice.",
+    q: "How is my account and data handled?",
+    a: "Your password is stored only as a bcrypt hash, never in readable form, and your login session is kept in an httpOnly cookie that page scripts cannot read. Portfolios are stored against your account and you can delete any of them at any time. Note that this site loads Google Tag Manager for basic site analytics, which collects ordinary web-usage data — your holdings are not sent to it.",
   },
   {
-    q: "How often is the benchmark portfolio updated?",
-    a: "We update the benchmark portfolio every time a new 13F filing is published with the SEC — typically once per quarter. You'll see the 'last updated' date on your dashboard so you always know how fresh the data is.",
+    q: "Is any of this financial advice?",
+    a: "No. PortfolioHQ shows you your own numbers and nothing more. It does not recommend what to buy or sell. Every decision is yours, and a qualified financial adviser is the right person to consult for personalised advice.",
   },
 ];
 
@@ -57,7 +57,8 @@ export function FAQAccordion() {
   );
 }
 
-export function SignupModalButton({
+/** Sends a visitor into the free /register flow. */
+export function SignupButton({
   className,
   children,
 }: {
@@ -65,14 +66,8 @@ export function SignupModalButton({
   children: React.ReactNode;
 }) {
   const router = useRouter();
-  // For now the "Start Free Trial" CTA routes to the existing /register flow.
-  // Wire to Stripe Checkout once a Payment Link is configured.
   return (
-    <button
-      className={className}
-      onClick={() => router.push("/register")}
-      type="button"
-    >
+    <button className={className} onClick={() => router.push("/register")} type="button">
       {children}
     </button>
   );
