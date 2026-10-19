@@ -18,8 +18,8 @@ export const dynamic = "force-dynamic";
 const DELAY_MS = 2000;
 
 export const metadata: Metadata = {
-  title: "Upsilon reference note | PortfolioHQ Lab",
-  description: "A reference note used by the crawl-diff experiment. Upsilon carries no production content.",
+  title: "Upsilon \u2014 research note | PortfolioHQ",
+  description: "Methodology record held for reference by the PortfolioHQ reporting pipeline. Not customer-facing material.",
   alternates: { canonical: "/lab/upsilon" },
 };
 

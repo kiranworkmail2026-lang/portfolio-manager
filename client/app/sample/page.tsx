@@ -7,14 +7,14 @@ import { SampleHoldingsTable } from "@/components/marketing/SampleHoldingsTable"
 import { sample, usd, pct, cls } from "@/lib/sampleData";
 
 const DESCRIPTION =
-  "A worked example of a PortfolioHQ report: value, gain and loss, sector allocation and the result on every holding, built from an illustrative portfolio.";
+  "A worked PortfolioHQ statement end to end: capital invested, current value, sector concentration and the result on each position, from an illustrative portfolio.";
 
 export const metadata: Metadata = {
-  title: "Sample report | PortfolioHQ",
+  title: "A worked example report — PortfolioHQ",
   description: DESCRIPTION,
   alternates: { canonical: "/sample" },
   openGraph: {
-    title: "Sample report | PortfolioHQ",
+    title: "A worked example report — PortfolioHQ",
     description: DESCRIPTION,
     url: "/sample",
     type: "website",

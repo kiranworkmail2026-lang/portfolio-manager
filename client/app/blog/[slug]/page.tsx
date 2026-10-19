@@ -32,7 +32,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
   const url = `${SITE_URL}/blog/${post.slug}`;
   return {
-    title: `${post.title} | Portfolio Manager`,
+    title: `${post.title} — PortfolioHQ`,
     description: post.excerpt,
     alternates: { canonical: url },
     openGraph: {

@@ -23,8 +23,8 @@ function formatDate(s?: string) {
 }
 
 export const metadata = {
-  title: "Blog | Portfolio Manager",
-  description: "Insights, analyses, and notes on building stock portfolios.",
+  title: "Notes and commentary | PortfolioHQ",
+  description: "Written notes on reading a portfolio: concentration, sector drift, and what a single-file report can and cannot tell you.",
   alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
     title: "Blog | Portfolio Manager",

@@ -9,7 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
         // Private/authenticated routes have no SEO value and may leak structure.
         disallow: [
-          "/lab/phi",
           "/dashboard",
           "/upload",
           "/posts",
