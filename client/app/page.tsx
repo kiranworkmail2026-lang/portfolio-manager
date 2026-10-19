@@ -9,14 +9,14 @@ import { MarketingFonts } from "@/components/marketing/MarketingFonts";
 import { sample, usd, pct } from "@/lib/sampleData";
 
 const DESCRIPTION =
-  "Upload the holdings export from your broker. PortfolioHQ sets out value, performance and concentration in one considered report.";
+  "Bring the holdings file you already have. PortfolioHQ returns one statement covering what you own, what it is worth now, and where the exposure sits.";
 
 export const metadata: Metadata = {
-  title: "PortfolioHQ | Private portfolio reporting",
+  title: "PortfolioHQ — Portfolio reporting from your own file",
   description: DESCRIPTION,
   alternates: { canonical: "/" },
   openGraph: {
-    title: "PortfolioHQ | Private portfolio reporting",
+    title: "PortfolioHQ — Portfolio reporting from your own file",
     description: DESCRIPTION,
     url: "/",
     type: "website",

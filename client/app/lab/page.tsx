@@ -7,8 +7,8 @@ import { MarketingFonts } from "@/components/marketing/MarketingFonts";
 import { HUB_LINKS, getLabPage } from "@/lib/labPages";
 
 export const metadata: Metadata = {
-  title: "Lab index | PortfolioHQ",
-  description: "Index of throwaway reference pages used by a controlled crawl-diff experiment.",
+  title: "Research index — PortfolioHQ",
+  description: "Index of internal research notes covering how PortfolioHQ builds a report from an uploaded holdings file.",
   alternates: { canonical: "/lab" },
 };
 

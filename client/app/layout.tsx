@@ -7,8 +7,8 @@ import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: "Portfolio Manager",
-  description: "Track your stock portfolio",
+  title: "PortfolioHQ",
+  description: "Turn a broker holdings export into a clear statement of value, performance and concentration.",
 };
 
 const GTM_ID = "GTM-W64CQRRR";
