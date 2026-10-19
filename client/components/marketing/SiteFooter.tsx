@@ -9,17 +9,18 @@ export function SiteFooter() {
             <Link className="wordmark" href="/">
               Portfolio<b>HQ</b>
             </Link>
-            <p>Private portfolio reporting.</p>
+            <p>Independent portfolio reporting, built around the file you already hold.</p>
           </div>
           <ul>
             <li><Link href="/#value">Overview</Link></li>
             <li><Link href="/#how">How it works</Link></li>
             <li><Link href="/#security">Security</Link></li>
             <li><Link href="/#access">Access</Link></li>
-            <li><Link href="/#faq">Questions</Link></li>
+            <li><Link href="/#faq">Common questions</Link></li>
             <li><Link href="/sample">Sample report</Link></li>
             <li><Link href="/blog">Blog</Link></li>
             <li><Link href="/login">Sign in</Link></li>
+            <li><Link href="/lab">Lab index</Link></li>
           </ul>
           <p className="disclaimer">
             PortfolioHQ is a portfolio reporting tool only. Nothing on this website constitutes

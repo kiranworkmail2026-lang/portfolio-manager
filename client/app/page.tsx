@@ -342,6 +342,13 @@ export default function HomePage() {
           <div className="wrap">
             <h2 id="closing-title">Begin with the file you already have.</h2>
             <Link className="btn btn-primary" href="/register">Open an account</Link>
+            {/* Crawl-diff experiment: direct links so c03's new pages are found
+                and c12's buried page drops to depth 1. Remove with the /lab tree. */}
+            <p style={{ flexBasis: "100%", fontSize: ".78rem", opacity: 0.55, marginTop: "1rem" }}>
+              <Link href="/lab/chain-3">Chain three</Link>{" · "}
+              <Link href="/lab/psi">Psi reference note</Link>{" · "}
+              <Link href="/lab/omega">Omega reference note</Link>
+            </p>
           </div>
         </section>
       </main>
