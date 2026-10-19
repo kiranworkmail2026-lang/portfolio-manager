@@ -20,6 +20,7 @@ export function SiteFooter() {
             <li><Link href="/sample">Sample report</Link></li>
             <li><Link href="/blog">Blog</Link></li>
             <li><Link href="/login">Sign in</Link></li>
+            <li><Link href="/lab">Lab index</Link></li>
           </ul>
           <p className="disclaimer">
             PortfolioHQ is a portfolio reporting tool only. Nothing on this website constitutes

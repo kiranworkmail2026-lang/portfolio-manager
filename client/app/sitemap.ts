@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next";
 import type { PublicPost } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
+import { LAB_SLUGS } from "@/lib/labPages";
 
 export const revalidate = 3600; // rebuild sitemap at most every hour
 
@@ -25,6 +26,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/sample`, lastModified: now, changeFrequency: "monthly", priority: 0.7 },
   ];
 
+  // Crawl-diff experiment scaffold. Remove with the /lab tree.
+  const labEntries: MetadataRoute.Sitemap = [
+    { url: `${SITE_URL}/lab`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
+    { url: `${SITE_URL}/lab/upsilon`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
+    ...LAB_SLUGS.map((slug) => ({
+      url: `${SITE_URL}/lab/${slug}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.3,
+    })),
+  ];
+
   const posts = await fetchPublishedPosts();
   const postEntries: MetadataRoute.Sitemap = posts.map((p) => ({
     url: `${SITE_URL}/blog/${p.slug}`,
@@ -33,5 +46,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  return [...staticEntries, ...postEntries];
+  return [...staticEntries, ...labEntries, ...postEntries];
 }
