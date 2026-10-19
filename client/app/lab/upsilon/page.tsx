@@ -15,7 +15,7 @@ import { MarketingFonts } from "@/components/marketing/MarketingFonts";
 export const dynamic = "force-dynamic";
 
 /** Version A: 0. Version B: 2000. */
-const DELAY_MS = 0;
+const DELAY_MS = 2000;
 
 export const metadata: Metadata = {
   title: "Upsilon reference note | PortfolioHQ Lab",

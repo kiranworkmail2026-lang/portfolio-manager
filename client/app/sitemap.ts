@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import type { PublicPost } from "@/lib/api";
 import { SITE_URL } from "@/lib/site";
-import { LAB_SLUGS } from "@/lib/labPages";
+import { LAB_SLUGS, LINKED_BUT_GONE } from "@/lib/labPages";
 
 export const revalidate = 3600; // rebuild sitemap at most every hour
 
@@ -30,7 +30,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const labEntries: MetadataRoute.Sitemap = [
     { url: `${SITE_URL}/lab`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
     { url: `${SITE_URL}/lab/upsilon`, lastModified: now, changeFrequency: "monthly", priority: 0.3 },
-    ...LAB_SLUGS.map((slug) => ({
+    ...[...LAB_SLUGS, ...LINKED_BUT_GONE].map((slug) => ({
       url: `${SITE_URL}/lab/${slug}`,
       lastModified: now,
       changeFrequency: "monthly" as const,
