@@ -7,8 +7,8 @@ import { MarketingFonts } from "@/components/marketing/MarketingFonts";
 import { HUB_LINKS, getLabPage } from "@/lib/labPages";
 
 export const metadata: Metadata = {
-  title: "Research index — PortfolioHQ",
-  description: "Index of internal research notes covering how PortfolioHQ builds a report from an uploaded holdings file.",
+  title: "Treasury research index — PortfolioHQ",
+  description: "Index of internal research notes covering how PortfolioHQ builds a corporate holdings statement from an uploaded custodian file.",
   alternates: { canonical: "/lab" },
 };
 
@@ -22,10 +22,10 @@ export default function LabIndexPage() {
         <section className="section">
           <div className="wrap">
             <div className="section-head">
-              <h1 className="h2">Lab index</h1>
+              <h1 className="h2">Treasury research index</h1>
               <p>
-                Throwaway reference pages for a controlled crawl-diff experiment. Nothing here is
-                production content, and the whole tree is removed once the test is finished.
+                Internal research notes on how a corporate holdings file becomes a statement a
+                finance team can circulate. Reference material, not customer-facing content.
               </p>
             </div>
             <ul style={{ marginTop: "1.5rem", paddingLeft: "1.2rem", display: "grid", gap: ".5rem" }}>
@@ -38,7 +38,7 @@ export default function LabIndexPage() {
                 );
               })}
               <li>
-                <Link className="textlink" href="/lab/upsilon">Upsilon reference note</Link>
+                <Link className="textlink" href="/lab/upsilon">Upsilon — treasury research note</Link>
               </li>
             </ul>
           </div>

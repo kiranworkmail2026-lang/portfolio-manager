@@ -55,7 +55,7 @@ export default function LabPage({ params }: { params: { slug: string } }) {
               ))}
             </div>
             <p style={{ marginTop: "2rem" }}>
-              <Link className="textlink" href="/lab">Back to the lab index</Link>
+              <Link className="textlink" href="/lab">Back to the research index</Link>
             </p>
             {page.linksTo && page.linksTo.length > 0 && (
               <ul style={{ marginTop: "1rem", paddingLeft: "1.2rem" }}>

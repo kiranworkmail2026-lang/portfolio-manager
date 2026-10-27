@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 // The page itself is a client component, so its title lives here.
 export const metadata: Metadata = {
-  title: "Account sign in — PortfolioHQ",
-  description: "Sign in to reach your portfolio report. No brokerage credentials are ever requested.",
+  title: "Sign in — PortfolioHQ treasury reporting",
+  description: "Sign in to reach your company’s holdings statements. Custodian and bank credentials are never requested.",
 };
 
 export default function LoginLayout({ children }: { children: React.ReactNode }) {

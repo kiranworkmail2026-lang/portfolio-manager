@@ -35,106 +35,106 @@ export type LabPage = {
 };
 
 const LEAD =
-  "This page belongs to a controlled crawl-diff experiment on PortfolioHQ. It carries ordinary prose so that a crawler measuring overlapping word sequences has something real to compare between two runs.";
+  "This note belongs to the PortfolioHQ research index. It records how a corporate holdings file is read and turned into a statement a finance team can circulate, and is kept for internal reference rather than as customer-facing material.";
 
 const FILLER_A =
-  "A portfolio report is only as good as the record behind it. When a holding is entered once and never revisited, the reasoning that justified it fades, and what remains is a number without a rationale. Keeping a short written note against each position costs little at the time and saves a great deal at the next review.";
+  "A holdings statement is only as good as the record behind it. When a position is booked once and never revisited, the rationale that justified it fades, and what reaches the board is a number nobody can speak to. A short note kept against each line costs the treasury team little at the time and saves a great deal at the next review.";
 
 const FILLER_B =
-  "Concentration is the risk that hides most easily. A portfolio can look balanced by count while two or three positions carry most of the value, and sector exposure can drift a long way from where it started without any single decision having felt wrong. Measuring allocation on every refresh is what turns that drift into something visible.";
+  "Concentration is the exposure that hides most easily. A book can look diversified by line count while two or three issuers carry most of the value, and sector weighting can drift well past an investment policy limit without any single decision having felt wrong. Measuring exposure on every upload is what turns that drift into something the controller can see.";
 
 const FILLER_C =
-  "Currency, timing and fees all shape a result that a headline percentage will not show. A gain quoted before costs is not the gain that reached the account, and a figure taken on a single day can flatter or punish a position that has not actually changed. Reports should be read with those caveats in mind.";
+  "Currency, settlement timing and custody fees all shape a result that a headline percentage will not show. A gain quoted before costs is not the gain that reached the company, and a figure struck on a single valuation date can flatter or punish a line that has not actually moved. A management statement should be read with those caveats, and never mistaken for the statutory accounts.";
 
 /* ---- Version B prose ---- */
 
 /** c10 — replaces FILLER_A on /lab/iota. Roughly a quarter of that page. */
 const REWRITE_ONE =
-  "Record keeping is what separates a portfolio from a list of tickers. The decision to buy is made once, under conditions that will not repeat, and the reasoning behind it decays faster than the position itself. A sentence written at the time is worth more at the next review than an hour of reconstruction afterwards.";
+  "Record keeping is what separates a treasury book from a list of tickers. The decision to buy is taken once, under conditions that will not repeat, and the reasoning behind it decays faster than the position itself. A sentence written at the time is worth more at the next audit than an hour of reconstruction afterwards.";
 
 /** c10 — replaces FILLER_B on /lab/iota. */
 const REWRITE_TWO =
-  "Exposure accumulates quietly. No single purchase makes a portfolio concentrated, yet a run of individually reasonable decisions can leave most of the value resting on one sector. Measuring the spread on every refresh is the only reliable way to notice that before it matters.";
+  "Exposure accumulates quietly. No single purchase makes a book concentrated, yet a run of individually reasonable decisions can leave most of the carrying value resting on one sector or one counterparty. Measuring the spread on every upload is the only reliable way to notice that before it reaches a committee paper.";
 
 /** c14 — about fifty words appended to /lab/nu. Below the content threshold. */
 const ADDENDUM =
-  "One further note. Figures in this report describe the file that was uploaded and nothing beyond it, so a stale export produces a stale report. Re-uploading is the whole of the refresh procedure, and there is no background process that will do it on your behalf.";
+  "One further note. Figures in this statement describe the custodian file that was uploaded and nothing beyond it, so a stale export produces a stale statement. Re-uploading is the whole of the refresh procedure, and no background process will do it on the finance team’s behalf.";
 
 /** c15 — one word changed per sentence on /lab/xi. Small count, wide spread. */
 const LEAD_XI =
-  "This page belongs to a controlled crawl-diff study on PortfolioHQ. It carries ordinary prose so that a crawler measuring overlapping word sequences has something concrete to compare between two runs.";
+  "This note belongs to the PortfolioHQ research library. It records how a corporate holdings file is read and turned into a statement a finance team can circulate, and is kept for internal reference rather than as customer-facing material.";
 const FILLER_A_XI =
-  "A portfolio report is only as sound as the record behind it. When a holding is entered once and never revisited, the reasoning that justified it fades, and what survives is a number without a rationale. Keeping a short written note against each position costs little at the time and saves a great deal at the following review.";
+  "A holdings statement is only as sound as the record behind it. When a position is booked once and never revisited, the rationale that justified it fades, and what reaches the board is a number nobody can speak to. A short note kept against each line costs the treasury team little at the time and saves a great deal at the following review.";
 const FILLER_B_XI =
-  "Concentration is the risk that hides most readily. A portfolio can look balanced by count while two or three positions carry most of the value, and sector exposure can drift a long way from where it began without any single decision having felt wrong. Measuring allocation on every refresh is what turns that drift into something observable.";
+  "Concentration is the exposure that hides most readily. A book can look diversified by line count while two or three issuers carry most of the value, and sector weighting can drift well past an investment policy limit without any single decision having felt wrong. Measuring exposure on every upload is what turns that drift into something the controller can observe.";
 
 /** c18 — about five words swapped on /lab/rho. Should sit under the threshold. */
 const FILLER_A_RHO =
-  "A portfolio report is only as good as the record behind it. When a holding is entered once and never revisited, the logic that justified it fades, and what remains is a figure without a rationale. Keeping a brief written note against each position costs little at the time and saves a great deal at the next review.";
+  "A holdings statement is only as good as the record behind it. When a position is booked once and never revisited, the logic that justified it fades, and what reaches the board is a figure nobody can speak to. A brief note kept against each line costs the treasury team little at the time and saves a great deal at the next review.";
 
 /** c16 — appended to /lab/omicron. About five percent of that page. */
 const SMALL_BLOCK_B =
-  "Read every figure here as a description of one file at one moment, not as a live valuation.";
+  "Read every figure here as a description of one custodian file at one valuation date, not as a live position.";
 
 export const LAB_PAGES: LabPage[] = [
   {
     slug: "delta",
     change: "c05 — gains meta robots noindex in B",
-    title: "Delta — research note | PortfolioHQ",
-    description: "Methodology record held for reference by the PortfolioHQ reporting pipeline. Not customer-facing material.",
-    h1: "Delta reference note",
+    title: "Delta — treasury research note | PortfolioHQ",
+    description: "Internal record of how a custodian holdings export becomes a statement the finance team can circulate. Not customer-facing material.",
+    h1: "Delta — treasury research note",
     body: [LEAD, FILLER_A],
   },
   {
     slug: "epsilon",
     change: "c06 — canonical points at /lab/delta in B",
-    title: "Epsilon — research note | PortfolioHQ",
-    description: "Working note on how a holdings export is parsed, weighted and reported. Retained for internal reference.",
-    h1: "Epsilon reference note",
+    title: "Epsilon — treasury research note | PortfolioHQ",
+    description: "Working note on reading a corporate holdings book: book cost, carrying value and where issuer exposure accumulates.",
+    h1: "Epsilon — treasury research note",
     body: [LEAD, FILLER_B],
   },
   {
     slug: "zeta",
     change: "c07 — title text changes in B",
-    title: "Zeta — research note | PortfolioHQ",
-    description: "Reference material covering valuation inputs, sector weighting and the limits of a single-file report.",
-    h1: "Zeta reference note",
+    title: "Zeta — treasury research note | PortfolioHQ",
+    description: "Reference material on valuation inputs, sector limits and the boundary between a management statement and the statutory accounts.",
+    h1: "Zeta — treasury research note",
     body: [LEAD, FILLER_C],
     linksTo: ["/lab/mu"],
   },
   {
     slug: "eta",
     change: "c08 — meta description changes in B",
-    title: "Eta — research note | PortfolioHQ",
-    description: "Internal note on report construction: what is read from the upload, what is derived, and what is not.",
-    h1: "Eta reference note",
+    title: "Eta — treasury research note | PortfolioHQ",
+    description: "Internal note on statement construction: what is read from the custodian file, what is derived, and what is deliberately left out.",
+    h1: "Eta — treasury research note",
     body: [LEAD, FILLER_A],
     linksTo: ["/lab/mu"],
   },
   {
     slug: "theta",
     change: "c09 — first H1 text changes in B",
-    title: "Theta — research note | PortfolioHQ",
-    description: "Methodology record held for reference by the PortfolioHQ reporting pipeline. Not customer-facing material.",
-    h1: "Theta allocation commentary",
+    title: "Theta — treasury research note | PortfolioHQ",
+    description: "Internal record of how a custodian holdings export becomes a statement the finance team can circulate. Not customer-facing material.",
+    h1: "Theta — treasury exposure commentary",
     body: [LEAD, FILLER_B],
     linksTo: ["/lab/mu"],
   },
   {
     slug: "iota",
     change: "c10 — about half the body is rewritten in B",
-    title: "Iota — research note | PortfolioHQ",
-    description: "Working note on how a holdings export is parsed, weighted and reported. Retained for internal reference.",
-    h1: "Iota reference note",
+    title: "Iota — treasury research note | PortfolioHQ",
+    description: "Working note on reading a corporate holdings book: book cost, carrying value and where issuer exposure accumulates.",
+    h1: "Iota — treasury research note",
     body: [LEAD, REWRITE_ONE, REWRITE_TWO, FILLER_C],
     linksTo: ["/lab/mu"],
   },
   {
     slug: "kappa",
     change: "c11 — FAQPage JSON-LD added in B. Deliberately has none here.",
-    title: "Kappa — research note | PortfolioHQ",
-    description: "Reference material covering valuation inputs, sector weighting and the limits of a single-file report.",
-    h1: "Kappa reference note",
+    title: "Kappa — treasury research note | PortfolioHQ",
+    description: "Reference material on valuation inputs, sector limits and the boundary between a management statement and the statutory accounts.",
+    h1: "Kappa — treasury research note",
     body: [LEAD, FILLER_C],
     jsonLd: [
       {
@@ -165,75 +165,75 @@ export const LAB_PAGES: LabPage[] = [
   {
     slug: "mu",
     change: "c13 — gains inbound links from five other lab pages in B",
-    title: "Mu — research note | PortfolioHQ",
-    description: "Internal note on report construction: what is read from the upload, what is derived, and what is not.",
-    h1: "Mu reference note",
+    title: "Mu — treasury research note | PortfolioHQ",
+    description: "Internal note on statement construction: what is read from the custodian file, what is derived, and what is deliberately left out.",
+    h1: "Mu — treasury research note",
     body: [LEAD, FILLER_A],
   },
   {
     slug: "xi",
     change: "c15 — one word per sentence changed in B; small count, wide spread",
-    title: "Xi — research note | PortfolioHQ",
-    description: "Methodology record held for reference by the PortfolioHQ reporting pipeline. Not customer-facing material.",
-    h1: "Xi reference note",
+    title: "Xi — treasury research note | PortfolioHQ",
+    description: "Internal record of how a custodian holdings export becomes a statement the finance team can circulate. Not customer-facing material.",
+    h1: "Xi — treasury research note",
     body: [LEAD_XI, FILLER_A_XI, FILLER_B_XI],
   },
   {
     slug: "omicron",
     change: "c16 — one block of about five percent rewritten in B; borderline case",
-    title: "Omicron — research note | PortfolioHQ",
-    description: "Working note on how a holdings export is parsed, weighted and reported. Retained for internal reference.",
-    h1: "Omicron reference note",
+    title: "Omicron — treasury research note | PortfolioHQ",
+    description: "Working note on reading a corporate holdings book: book cost, carrying value and where issuer exposure accumulates.",
+    h1: "Omicron — treasury research note",
     body: [LEAD, FILLER_A, FILLER_B, FILLER_C, SMALL_BLOCK_B],
   },
   {
     slug: "phi",
     change: "c24 — disallowed in robots.txt in B",
-    title: "Phi — research note | PortfolioHQ",
-    description: "Reference material covering valuation inputs, sector weighting and the limits of a single-file report.",
-    h1: "Phi reference note",
+    title: "Phi — treasury research note | PortfolioHQ",
+    description: "Reference material on valuation inputs, sector limits and the boundary between a management statement and the statutory accounts.",
+    h1: "Phi — treasury research note",
     body: [LEAD, FILLER_B],
   },
   {
     slug: "psi",
     change: "c03 — new page, did not exist at crawl A",
-    title: "Psi — research note | PortfolioHQ",
-    description: "Internal note on report construction: what is read from the upload, what is derived, and what is not.",
-    h1: "Psi reference note",
+    title: "Psi — treasury research note | PortfolioHQ",
+    description: "Internal note on statement construction: what is read from the custodian file, what is derived, and what is deliberately left out.",
+    h1: "Psi — treasury research note",
     body: [LEAD, FILLER_B],
   },
   {
     slug: "omega",
     change: "c03 — new page, did not exist at crawl A",
-    title: "Omega — research note | PortfolioHQ",
-    description: "Methodology record held for reference by the PortfolioHQ reporting pipeline. Not customer-facing material.",
-    h1: "Omega reference note",
+    title: "Omega — treasury research note | PortfolioHQ",
+    description: "Internal record of how a custodian holdings export becomes a statement the finance team can circulate. Not customer-facing material.",
+    h1: "Omega — treasury research note",
     body: [LEAD, FILLER_C],
   },
   {
     slug: "chain-1",
     change: "depth scaffold — first link in the chain that buries chain-3",
-    title: "Chain — research note | PortfolioHQ",
-    description: "Working note on how a holdings export is parsed, weighted and reported. Retained for internal reference.",
-    h1: "Chain one",
+    title: "Chain — treasury research note | PortfolioHQ",
+    description: "Working note on reading a corporate holdings book: book cost, carrying value and where issuer exposure accumulates.",
+    h1: "Chain one — custody reconciliation",
     body: [LEAD],
     linksTo: ["/lab/chain-2"],
   },
   {
     slug: "chain-2",
     change: "depth scaffold — second link in the chain",
-    title: "Chain — research note | PortfolioHQ",
-    description: "Reference material covering valuation inputs, sector weighting and the limits of a single-file report.",
-    h1: "Chain two",
+    title: "Chain — treasury research note | PortfolioHQ",
+    description: "Reference material on valuation inputs, sector limits and the boundary between a management statement and the statutory accounts.",
+    h1: "Chain two — valuation sources",
     body: [LEAD],
     linksTo: ["/lab/chain-3"],
   },
   {
     slug: "chain-3",
     change: "c12 — buried at depth 4 here; linked straight from the home page in B",
-    title: "Chain — research note | PortfolioHQ",
-    description: "Internal note on report construction: what is read from the upload, what is derived, and what is not.",
-    h1: "Chain three",
+    title: "Chain — treasury research note | PortfolioHQ",
+    description: "Internal note on statement construction: what is read from the custodian file, what is derived, and what is deliberately left out.",
+    h1: "Chain three — policy limits",
     body: [LEAD, FILLER_C],
   },
 ];

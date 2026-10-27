@@ -26,16 +26,16 @@ export function SiteHeader() {
         </button>
         <nav className={`site-nav${open ? " open" : ""}`} id="site-nav" aria-label="Main">
           <ul>
-            <li><Link href="/#value" onClick={() => setOpen(false)}>Overview</Link></li>
+            <li><Link href="/#value" onClick={() => setOpen(false)}>The statement</Link></li>
             <li><Link href="/#how" onClick={() => setOpen(false)}>How it works</Link></li>
-            <li><Link href="/#security" onClick={() => setOpen(false)}>Security</Link></li>
-            <li><Link href="/#access" onClick={() => setOpen(false)}>Access</Link></li>
+            <li><Link href="/#security" onClick={() => setOpen(false)}>Data handling</Link></li>
+            <li><Link href="/#access" onClick={() => setOpen(false)}>Pilot access</Link></li>
           </ul>
           <Link className="signin" href="/login" onClick={() => setOpen(false)}>
             Sign in
           </Link>
           <Link className="btn btn-primary" href="/register" onClick={() => setOpen(false)}>
-            Open an account
+            Request access
           </Link>
         </nav>
       </div>

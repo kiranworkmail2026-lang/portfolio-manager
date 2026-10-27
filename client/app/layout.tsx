@@ -8,7 +8,7 @@ import { SITE_URL } from "@/lib/site";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: "PortfolioHQ",
-  description: "Turn a broker holdings export into a clear statement of value, performance and concentration.",
+  description: "Turn a custodian holdings export into a clear corporate statement of book cost, carrying value and issuer concentration.",
 };
 
 const GTM_ID = "GTM-W64CQRRR";

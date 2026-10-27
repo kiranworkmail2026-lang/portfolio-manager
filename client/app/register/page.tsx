@@ -42,8 +42,8 @@ export default function RegisterPage() {
         <section className="account">
           <div className="wrap">
             <div>
-              <h1>Open an account</h1>
-              <p className="sub">A name, an email address and a password. No payment details.</p>
+              <h1>Request access</h1>
+              <p className="sub">A name, a work email address and a password. No payment details, no purchase order.</p>
 
               <form className="form" onSubmit={handleSubmit} noValidate>
                 <div className="field">
@@ -58,7 +58,7 @@ export default function RegisterPage() {
                   />
                 </div>
                 <div className="field">
-                  <label htmlFor="f-email">Email address</label>
+                  <label htmlFor="f-email">Work email address</label>
                   <input
                     id="f-email"
                     name="email"
@@ -93,7 +93,7 @@ export default function RegisterPage() {
                 )}
 
                 <button className="btn btn-ink" type="submit" disabled={submitting}>
-                  {submitting ? "Opening account…" : "Open account"}
+                  {submitting ? "Requesting…" : "Request access"}
                 </button>
                 <p className="alt">
                   Already have an account? <Link className="textlink" href="/login">Sign in</Link>
