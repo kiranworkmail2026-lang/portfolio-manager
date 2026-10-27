@@ -18,8 +18,8 @@ export const dynamic = "force-dynamic";
 const DELAY_MS = 2000;
 
 export const metadata: Metadata = {
-  title: "Upsilon \u2014 research note | PortfolioHQ",
-  description: "Methodology record held for reference by the PortfolioHQ reporting pipeline. Not customer-facing material.",
+  title: "Upsilon — treasury research note | PortfolioHQ",
+  description: "Internal record of how a custodian holdings export becomes a statement the finance team can circulate. Not customer-facing material.",
   alternates: { canonical: "/lab/upsilon" },
 };
 
@@ -37,21 +37,21 @@ export default async function UpsilonPage() {
         <section className="section">
           <div className="wrap">
             <div className="section-head">
-              <h1 className="h2">Upsilon reference note</h1>
+              <h1 className="h2">Upsilon — treasury research note</h1>
             </div>
             <div style={{ maxWidth: "40rem", display: "grid", gap: "1.25rem", marginTop: "1.5rem" }}>
               <p>
-                This page belongs to a controlled crawl-diff experiment on PortfolioHQ. It carries
-                ordinary prose so that a crawler measuring overlapping word sequences has something
-                real to compare between two runs.
+                This note belongs to the PortfolioHQ research index. It records how a corporate
+                holdings file is read and turned into a statement a finance team can circulate,
+                and is kept for internal reference rather than as customer-facing material.
               </p>
               <p>
-                It is rendered on demand rather than served from the build output, so that the time
-                taken to answer a request is a property of the page itself and not of a cache.
+                It is rendered on demand rather than served from the build output, so the time
+                taken to answer a request is a property of the note itself and not of a cache.
               </p>
             </div>
             <p style={{ marginTop: "2rem" }}>
-              <Link className="textlink" href="/lab">Back to the lab index</Link>
+              <Link className="textlink" href="/lab">Back to the research index</Link>
             </p>
           </div>
         </section>

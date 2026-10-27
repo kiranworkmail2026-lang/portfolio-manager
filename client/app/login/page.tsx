@@ -42,7 +42,7 @@ export default function LoginPage() {
           <div className="wrap">
             <div>
               <h1>Sign in</h1>
-              <p className="sub">Welcome back.</p>
+              <p className="sub">Reach the company’s holdings statements.</p>
 
               <form className="form" onSubmit={handleSubmit} noValidate>
                 <div className="field">
@@ -80,7 +80,7 @@ export default function LoginPage() {
                   {submitting ? "Signing in…" : "Sign in"}
                 </button>
                 <p className="alt">
-                  New to PortfolioHQ? <Link className="textlink" href="/register">Open an account</Link>
+                  Does your team not have access yet? <Link className="textlink" href="/register">Request access</Link>
                 </p>
               </form>
             </div>
