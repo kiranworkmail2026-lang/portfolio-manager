@@ -5,12 +5,12 @@ export function AuthAside() {
       <h2 id="next-title">What happens next</h2>
       <ol>
         <li>Create your account with a work email address.</li>
-        <li>Take the custodian export the company already receives, as .xlsx or .csv.</li>
-        <li>Upload it and circulate the statement.</li>
+        <li>Download a client holdings export from your platform, as .xlsx or .csv.</li>
+        <li>Upload it and take the statement into the review.</li>
       </ol>
       <p className="reassure">
-        Passwords are hashed with bcrypt. We never ask for custodian or bank credentials, and an
-        uploaded book can be deleted at any time.
+        Passwords are hashed with bcrypt. We never ask for platform credentials, client names and
+        account numbers are not needed, and an uploaded book can be deleted at any time.
       </p>
     </aside>
   );

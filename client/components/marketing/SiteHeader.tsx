@@ -28,7 +28,7 @@ export function SiteHeader() {
           <ul>
             <li><Link href="/#value" onClick={() => setOpen(false)}>The statement</Link></li>
             <li><Link href="/#how" onClick={() => setOpen(false)}>How it works</Link></li>
-            <li><Link href="/#security" onClick={() => setOpen(false)}>Data handling</Link></li>
+            <li><Link href="/#security" onClick={() => setOpen(false)}>Client data</Link></li>
             <li><Link href="/#access" onClick={() => setOpen(false)}>Pilot access</Link></li>
           </ul>
           <Link className="signin" href="/login" onClick={() => setOpen(false)}>

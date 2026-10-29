@@ -43,7 +43,7 @@ export default function RegisterPage() {
           <div className="wrap">
             <div>
               <h1>Request access</h1>
-              <p className="sub">A name, a work email address and a password. No payment details, no purchase order.</p>
+              <p className="sub">A name, a work email address and a password. No payment details, no per-seat licence.</p>
 
               <form className="form" onSubmit={handleSubmit} noValidate>
                 <div className="field">

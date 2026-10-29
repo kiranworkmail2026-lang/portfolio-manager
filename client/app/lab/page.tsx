@@ -7,8 +7,8 @@ import { MarketingFonts } from "@/components/marketing/MarketingFonts";
 import { HUB_LINKS, getLabPage } from "@/lib/labPages";
 
 export const metadata: Metadata = {
-  title: "Treasury research index — PortfolioHQ",
-  description: "Index of internal research notes covering how PortfolioHQ builds a corporate holdings statement from an uploaded custodian file.",
+  title: "Adviser research index — PortfolioHQ",
+  description: "Index of internal research notes covering how PortfolioHQ builds a client holdings statement from an uploaded platform export.",
   alternates: { canonical: "/lab" },
 };
 
@@ -22,10 +22,10 @@ export default function LabIndexPage() {
         <section className="section">
           <div className="wrap">
             <div className="section-head">
-              <h1 className="h2">Treasury research index</h1>
+              <h1 className="h2">Adviser research index</h1>
               <p>
-                Internal research notes on how a corporate holdings file becomes a statement a
-                finance team can circulate. Reference material, not customer-facing content.
+                Internal research notes on how a client holdings export becomes a statement an
+                adviser can take into a review. Reference material, not client-facing content.
               </p>
             </div>
             <ul style={{ marginTop: "1.5rem", paddingLeft: "1.2rem", display: "grid", gap: ".5rem" }}>
@@ -38,7 +38,7 @@ export default function LabIndexPage() {
                 );
               })}
               <li>
-                <Link className="textlink" href="/lab/upsilon">Upsilon — treasury research note</Link>
+                <Link className="textlink" href="/lab/upsilon">Upsilon — adviser research note</Link>
               </li>
             </ul>
           </div>

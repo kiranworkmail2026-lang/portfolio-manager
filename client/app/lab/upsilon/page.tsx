@@ -18,8 +18,8 @@ export const dynamic = "force-dynamic";
 const DELAY_MS = 2000;
 
 export const metadata: Metadata = {
-  title: "Upsilon — treasury research note | PortfolioHQ",
-  description: "Internal record of how a custodian holdings export becomes a statement the finance team can circulate. Not customer-facing material.",
+  title: "Upsilon — adviser research note | PortfolioHQ",
+  description: "Internal record of how a client holdings export becomes a statement an adviser can take into a review. Not client-facing material.",
   alternates: { canonical: "/lab/upsilon" },
 };
 
@@ -37,13 +37,13 @@ export default async function UpsilonPage() {
         <section className="section">
           <div className="wrap">
             <div className="section-head">
-              <h1 className="h2">Upsilon — treasury research note</h1>
+              <h1 className="h2">Upsilon — adviser research note</h1>
             </div>
             <div style={{ maxWidth: "40rem", display: "grid", gap: "1.25rem", marginTop: "1.5rem" }}>
               <p>
-                This note belongs to the PortfolioHQ research index. It records how a corporate
-                holdings file is read and turned into a statement a finance team can circulate,
-                and is kept for internal reference rather than as customer-facing material.
+                This note belongs to the PortfolioHQ research index. It records how a client
+                holdings export is read and turned into a statement an adviser can take into a
+                review, and is kept for internal reference rather than as client-facing material.
               </p>
               <p>
                 It is rendered on demand rather than served from the build output, so the time
