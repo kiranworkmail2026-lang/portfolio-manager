@@ -7,10 +7,10 @@ import { SampleHoldingsTable } from "@/components/marketing/SampleHoldingsTable"
 import { sample, usd, pct, cls } from "@/lib/sampleData";
 
 const DESCRIPTION =
-  "A worked corporate holdings statement end to end: book cost, carrying value, sector and issuer concentration and the result on each line, from an illustrative treasury book.";
+  "A worked client holdings statement end to end: cost basis, current value, sector and holding concentration and the result on each line, from an illustrative client book.";
 
 export const metadata: Metadata = {
-  title: "A worked treasury statement — PortfolioHQ",
+  title: "A worked client statement — PortfolioHQ",
   description: DESCRIPTION,
   alternates: { canonical: "/sample" },
   openGraph: {
@@ -47,31 +47,31 @@ export default function SamplePage() {
         <div className="app-main">
           <div className="sample-note" role="note">
             <span>
-              This is an illustrative treasury book, not a real company account. Request access to
-              upload your own custodian export.
+              This is an illustrative client book, not a real account. Request access to upload a
+              platform export of your own.
             </span>
             <Link href="/register">Request access</Link>
           </div>
 
           <div className="dash-head" id="dash-top">
             <div>
-              <h1>Treasury overview</h1>
-              <p>{rows.length} positions held. Illustrative data, based on custodian-export.csv.</p>
+              <h1>Client overview</h1>
+              <p>{rows.length} holdings. Illustrative data, based on platform-export.csv.</p>
             </div>
           </div>
 
           <dl className="kpis">
-            <div className="kpi"><dt>Carrying value</dt><dd>{usd(total)}</dd></div>
-            <div className="kpi"><dt>Book cost</dt><dd>{usd(cost)}</dd></div>
+            <div className="kpi"><dt>Current value</dt><dd>{usd(total)}</dd></div>
+            <div className="kpi"><dt>Cost basis</dt><dd>{usd(cost)}</dd></div>
             <div className="kpi">
-              <dt>Unrealised on book cost</dt>
+              <dt>Unrealised on cost</dt>
               <dd className={cls(gain)}>
                 {usd(gain, true)}
                 <span className={`sub ${cls(gain)}`}>{pct(gainPct, true)}</span>
               </dd>
             </div>
             <div className="kpi">
-              <dt>Largest issuer</dt>
+              <dt>Largest holding</dt>
               <dd>
                 {topHolding.s}
                 <span className="sub">{pct(topHolding.w)} of the book</span>
@@ -83,7 +83,7 @@ export default function SamplePage() {
             <section className="panel" aria-labelledby="alloc-title">
               <div className="panel-head">
                 <h2 id="alloc-title">Exposure by sector</h2>
-                <span>By carrying value</span>
+                <span>By current value</span>
               </div>
               <div className="panel-body alloc">
                 <div className="donut">
@@ -127,8 +127,8 @@ export default function SamplePage() {
 
             <section className="panel" aria-labelledby="top-title">
               <div className="panel-head">
-                <h2 id="top-title">Issuer concentration</h2>
-                <span>Share of carrying value</span>
+                <h2 id="top-title">Largest holdings</h2>
+                <span>Share of current value</span>
               </div>
               <div className="panel-body">
                 <ol className="bars">
@@ -155,26 +155,26 @@ export default function SamplePage() {
               <h2 id="notes-title">Notes</h2>
             </div>
             <article className="note">
-              <h3>Technology weighting against policy limit</h3>
+              <h3>Technology weighting vs agreed mandate</h3>
               <p>
                 Technology and communication services now make up a larger share of the book than
-                at acquisition, and the combined weighting is close to the single-sector limit in
-                the investment policy. Worth raising with the treasurer before quarter end.
+                at the last review, drifting above the equity mix agreed in the client’s mandate.
+                Worth raising at the next meeting rather than letting it ride another year.
               </p>
-              <p className="meta"><span className="tag">Internal</span>Illustrative note</p>
+              <p className="meta"><span className="tag">File note</span>Illustrative note</p>
             </article>
             <article className="note">
-              <h3>Two lines below cost</h3>
-              <p>KO and JNJ are the two lines carrying below book cost. Revisit alongside the liquidity schedule.</p>
-              <p className="meta"><span className="tag">Internal</span>Illustrative note</p>
+              <h3>Two holdings below cost</h3>
+              <p>KO and JNJ are the two holdings below cost basis. Expect the client to ask; have the reasoning ready.</p>
+              <p className="meta"><span className="tag">File note</span>Illustrative note</p>
             </article>
           </section>
 
           <p className="app-foot">
             PortfolioHQ is a holdings reporting tool. Every figure on this page is drawn from an
-            illustrative treasury book and describes no real company. Nothing shown constitutes
-            investment advice, a recommendation to buy or sell any security, or a valuation for
-            statutory accounts.
+            illustrative client book and describes no real person. Nothing shown constitutes
+            investment advice, a recommendation to buy or sell any security, or a performance
+            report prepared to a regulatory standard.
           </p>
         </div>
       </div>

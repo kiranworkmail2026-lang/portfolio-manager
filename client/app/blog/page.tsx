@@ -23,8 +23,8 @@ function formatDate(s?: string) {
 }
 
 export const metadata = {
-  title: "Treasury notes | PortfolioHQ",
-  description: "Written notes for finance teams on reading a corporate holdings book: issuer concentration, sector drift, and what a period-end statement can and cannot tell you.",
+  title: "Adviser notes | PortfolioHQ",
+  description: "Written notes for advice practices on reading a client book: concentration, mandate drift, and what a holdings statement can and cannot tell a client.",
   alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
     title: "Blog | Portfolio Manager",
